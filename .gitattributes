@@ -1,0 +1,11 @@
+# Préserver les octets des données et les empreintes de reproduction.
+* -text
+*.md text eol=lf
+*.py text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+requirements*.txt text eol=lf
+# Les lignes blanches indentées du TMDL sont générées par Power BI.
+*.tmdl whitespace=-blank-at-eol,-blank-at-eof
+# Les descriptions multiligne du catalogue CSV conservent leurs espaces sources.
+*.csv whitespace=-blank-at-eol

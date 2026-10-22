@@ -1,0 +1,37 @@
+# Environnement et fichiers locaux
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.env
+.env.*
+!.env.example
+*.local.json
+*.tmp
+*.log
+~$*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Power BI : caches, connexions et sauvegarde historique
+**/.pbi/
+/powerbi/*.pbix
+/powerbi/*.pbit
+
+# Dossiers de travail locaux, non publiés
+/design/
+/docs/presentation/
+/docs/previews/
+/reports/captures_*/
+/assets/artists/collecte_complete/
+/assets/artists/candidats_collecte/
+/assets/artists/exemples_collecte/
+/assets/artists/*.jpg
+/assets/artists/*.jpeg
+/assets/artists/*.png
+/assets/backgrounds/*.png
+/assets/backgrounds/*.svg

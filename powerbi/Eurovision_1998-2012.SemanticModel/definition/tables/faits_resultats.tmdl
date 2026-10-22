@@ -1,0 +1,164 @@
+table faits_resultats
+	lineageTag: 7a590788-592f-5815-a955-f4753d02da2d
+
+	column resultat_id
+		dataType: string
+		isHidden
+		lineageTag: 66aa7d95-79de-53bc-a1d5-685035666389
+		summarizeBy: none
+		sourceColumn: resultat_id
+
+	column participation_id
+		dataType: string
+		isHidden
+		lineageTag: 45cc3b5d-23a5-5f31-9fc6-6555832498ff
+		summarizeBy: none
+		sourceColumn: participation_id
+
+	column edition
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 719f4871-a258-5eb6-9f95-7b8220e3661d
+		summarizeBy: none
+		sourceColumn: edition
+
+	column pays_id
+		dataType: string
+		isHidden
+		lineageTag: ae853b16-87ff-53b3-b96c-6b7790207caf
+		summarizeBy: none
+		sourceColumn: pays_id
+
+	column etape
+		dataType: string
+		isHidden
+		lineageTag: ff6adf13-bc0e-5dab-bf1f-c6163a5a59ec
+		summarizeBy: none
+		sourceColumn: etape
+
+	column ligne_excel
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 360b2e33-9726-52c8-8c28-0273acf8d370
+		summarizeBy: none
+		sourceColumn: ligne_excel
+
+	column identifiant_source
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 2f7e0e42-d55e-57c2-9ee9-ab9170c5af42
+		summarizeBy: none
+		sourceColumn: identifiant_source
+
+	column place
+		dataType: int64
+		formatString: #,0
+		lineageTag: c78b0710-4631-5961-afdf-ef9360022634
+		summarizeBy: none
+		sourceColumn: place
+
+	column points
+		dataType: int64
+		formatString: #,0
+		lineageTag: bb956f7b-dfb1-5ad6-9015-b8e490acaeca
+		summarizeBy: none
+		sourceColumn: points
+
+	column place_source
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 1817a229-8ef7-51e8-be50-16f1674ec35a
+		summarizeBy: none
+		sourceColumn: place_source
+
+	column points_source
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 78fc8137-00c3-5924-bfc6-b17695fd71de
+		summarizeBy: none
+		sourceColumn: points_source
+
+	column correction_resultat
+		dataType: boolean
+		lineageTag: b62f0885-0ebb-543f-8e8c-734296504ade
+		summarizeBy: none
+		sourceColumn: correction_resultat
+
+	column normalized_points_source
+		dataType: double
+		isHidden
+		formatString: 0.000
+		lineageTag: cbaf2e03-95da-5d71-a552-5e323dcd3b44
+		summarizeBy: none
+		sourceColumn: normalized_points_source
+
+	column part_points_etape
+		dataType: double
+		formatString: 0.0%
+		lineageTag: fb7e7c86-8415-5e65-8b32-5624bf2d400f
+		summarizeBy: none
+		sourceColumn: part_points_etape
+
+	column song_quality_source
+		dataType: double
+		isHidden
+		formatString: 0.000
+		lineageTag: 48e12def-6f1a-569d-9f0f-c075e9e94126
+		summarizeBy: none
+		sourceColumn: song_quality_source
+
+	column region_source
+		dataType: string
+		isHidden
+		lineageTag: 88872d19-8b4b-5301-ba80-9dc27601e562
+		summarizeBy: none
+		sourceColumn: region_source
+
+	column chanson_en_anglais_source
+		dataType: int64
+		formatString: #,0
+		lineageTag: a82a3d20-08a2-5ca9-984a-7ae3e61fe0eb
+		summarizeBy: none
+		sourceColumn: chanson_en_anglais_source
+
+	column pays_hote_source
+		dataType: string
+		lineageTag: cc52cbfc-8f15-55e6-938c-30d485f16d02
+		summarizeBy: none
+		sourceColumn: pays_hote_source
+
+	column region_hote_source
+		dataType: string
+		lineageTag: dfc67af8-4f1f-5483-91c5-5c0ca95a0f43
+		summarizeBy: none
+		sourceColumn: region_hote_source
+
+	column est_finale
+		dataType: boolean
+		lineageTag: 6346f9ba-163b-5dea-91f6-d69c670ad589
+		summarizeBy: none
+		sourceColumn: est_finale
+
+	column groupe_classement
+		dataType: string
+		lineageTag: 2e2a4060-c793-50f0-b431-8f72eb76d296
+		summarizeBy: none
+		sourceColumn: groupe_classement
+
+	partition faits_resultats = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DossierDonnees & "\eurovision_constellation.xlsx"), null, true),
+				    Donnees = Table.PromoteHeaders(Source{[Item="faits_resultats",Kind="Sheet"]}[Data], [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Donnees, {{"resultat_id", type text}, {"participation_id", type text}, {"edition", Int64.Type}, {"pays_id", type text}, {"etape", type text}, {"ligne_excel", Int64.Type}, {"identifiant_source", Int64.Type}, {"place", Int64.Type}, {"points", Int64.Type}, {"place_source", Int64.Type}, {"points_source", Int64.Type}, {"correction_resultat", type logical}, {"normalized_points_source", type number}, {"part_points_etape", type number}, {"song_quality_source", type number}, {"region_source", type text}, {"chanson_en_anglais_source", Int64.Type}, {"pays_hote_source", type text}, {"region_hote_source", type text}, {"est_finale", type logical}, {"groupe_classement", type text}}, "en-US")
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,23 @@
+﻿Variable,Type préparé,Valeurs nulles
+Sr.No,Int64,1
+Year,Int64,0
+Place,Int64,0
+Points,Int64,0
+Is.Final,Int64,0
+Semi.Final.Number,Int64,367
+Song.In.English,Int64,0
+key,Int64,166
+time_signature,Int64,166
+mode,Int64,166
+energy,float64,166
+duration,float64,166
+acousticness,float64,168
+danceability,float64,166
+tempo,float64,166
+speechiness,float64,166
+liveness,float64,166
+loudness,float64,166
+valence,float64,168
+Song.Quality,float64,0
+Normalized.Points,float64,0
+Happiness,float64,344

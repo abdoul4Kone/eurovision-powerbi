@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "classeur": "data/processed/eurovision_constellation.xlsx",
+  "tables": {
+    "dim_editions": {
+      "lignes": 15,
+      "colonnes": 2,
+      "sha256_logique": "ac7bcb143c05797b865aeb707abf3f35767d83eb1abaf8b553d9e393b0f40dd4",
+      "types": {
+        "edition": "Int64",
+        "nombre_demi_finales": "Int64"
+      }
+    },
+    "dim_pays": {
+      "lignes": 48,
+      "colonnes": 4,
+      "sha256_logique": "fd4e1949b26d517bd7b401946d1aef0453c743f109d3f10720c10e6e2a51a657",
+      "types": {
+        "pays_id": "str",
+        "pays_source": "str",
+        "pays_fr": "str",
+        "entite_historique": "bool"
+      }
+    },
+    "dim_pays_donneurs": {
+      "lignes": 48,
+      "colonnes": 4,
+      "sha256_logique": "fd4e1949b26d517bd7b401946d1aef0453c743f109d3f10720c10e6e2a51a657",
+      "types": {
+        "pays_id": "str",
+        "pays_source": "str",
+        "pays_fr": "str",
+        "entite_historique": "bool"
+      }
+    },
+    "dim_participations": {
+      "lignes": 508,
+      "colonnes": 25,
+      "sha256_logique": "2164962964f34fbeb4fc188776fcfc830117314199614b112b2d6b6abc7c2779",
+      "types": {
+        "participation_id": "str",
+        "edition": "Int64",
+        "pays_id": "str",
+        "ligne_representative": "int64",
+        "artiste": "str",
+        "chanson": "str",
+        "genre_source": "string",
+        "formation_source": "string",
+        "image_url": "str",
+        "chanson_en_anglais_reference": "Int64",
+        "image_url_source": "string",
+        "image_type": "str",
+        "image_sujet": "str",
+        "image_fichier": "str",
+        "image_source": "str",
+        "image_auteur": "str",
+        "image_licence": "str",
+        "image_licence_url": "str",
+        "image_sha256": "str",
+        "image_url_distante": "str",
+        "image_date_verification": "str",
+        "pays_fr": "str",
+        "libelle_participation": "str",
+        "libelle_chanson": "str",
+        "langue_reference": "str"
+      }
+    },
+    "dim_etapes": {
+      "lignes": 3,
+      "colonnes": 3,
+      "sha256_logique": "6107575e21985698a2de0e2bef030522923d2d64b38a8de1f2e487057eb928a9",
+      "types": {
+        "etape": "str",
+        "libelle_etape": "str",
+        "ordre_etape": "int64"
+      }
+    },
+    "faits_participations": {
+      "lignes": 508,
+      "colonnes": 33,
+      "sha256_logique": "fe06af36c1e6bd2c9765db0b86f5f7ef0f0b9d134196b7cee66612cb63d61a16",
+      "types": {
+        "participation_id": "str",
+        "edition": "Int64",
+        "pays_id": "str",
+        "energy": "float64",
+        "duration": "float64",
+        "acousticness": "float64",
+        "danceability": "float64",
+        "tempo": "float64",
+        "speechiness": "float64",
+        "key": "Int64",
+        "liveness": "float64",
+        "time_signature": "Int64",
+        "mode": "Int64",
+        "loudness": "float64",
+        "valence": "float64",
+        "happiness_source": "float64",
+        "energy_disponible": "bool",
+        "duration_disponible": "bool",
+        "acousticness_disponible": "bool",
+        "danceability_disponible": "bool",
+        "tempo_disponible": "bool",
+        "speechiness_disponible": "bool",
+        "key_disponible": "bool",
+        "liveness_disponible": "bool",
+        "time_signature_disponible": "bool",
+        "mode_disponible": "bool",
+        "loudness_disponible": "bool",
+        "valence_disponible": "bool",
+        "Happiness_disponible": "bool",
+        "profil_complet": "bool",
+        "duree_atypique": "bool",
+        "est_finaliste": "bool",
+        "nombre_passages": "Int64"
+      }
+    },
+    "faits_resultats": {
+      "lignes": 648,
+      "colonnes": 21,
+      "sha256_logique": "b600fbf9c56744a5965e3495af776175030fe578516540c23ab2f8719fb000f2",
+      "types": {
+        "resultat_id": "str",
+        "participation_id": "str",
+        "edition": "Int64",
+        "pays_id": "str",
+        "etape": "str",
+        "ligne_excel": "int64",
+        "identifiant_source": "Int64",
+        "place": "Int64",
+        "points": "Int64",
+        "place_source": "Int64",
+        "points_source": "Int64",
+        "correction_resultat": "boolean",
+        "normalized_points_source": "float64",
+        "part_points_etape": "Float64",
+        "song_quality_source": "float64",
+        "region_source": "str",
+        "chanson_en_anglais_source": "Int64",
+        "pays_hote_source": "str",
+        "region_hote_source": "str",
+        "est_finale": "bool",
+        "groupe_classement": "str"
+      }
+    },
+    "faits_votes": {
+      "lignes": 12131,
+      "colonnes": 9,
+      "sha256_logique": "54f728c9b97ad74911e846e5142d44c9915c706ed98e943f073d04dad51a021e",
+      "types": {
+        "vote_id": "str",
+        "edition": "Int64",
+        "participation_id": "str",
+        "pays_destinataire_id": "str",
+        "pays_donneur_id": "str",
+        "points": "Int64",
+        "score_source": "Int64",
+        "vote_corrige": "boolean",
+        "ligne_excel": "int64"
+      }
+    }
+  },
+  "relations": [
+    {
+      "fait": "faits_participations",
+      "cle_etrangere": "edition",
+      "dimension": "dim_editions",
+      "cle_primaire": "edition",
+      "cardinalite": "plusieurs vers un",
+      "filtrage": "dimension vers fait"
+    },
+    {
+      "fait": "faits_participations",
+      "cle_etrangere": "pays_id",
+      "dimension": "dim_pays",
+      "cle_primaire": "pays_id",
+      "cardinalite": "plusieurs vers un",
+      "filtrage": "dimension vers fait"
+    },
+    {
+      "fait": "faits_participations",
+      "cle_etrangere": "participation_id",
+      "dimension": "dim_participations",
+      "cle_primaire": "participation_id",
+      "cardinalite": "plusieurs vers un",
+      "filtrage": "dimension vers fait"
+    },
+    {
+      "fait": "faits_resultats",
+      "cle_etrangere": "edition",
+      "dimension": "dim_editions",
+      "cle_primaire": "edition",
+      "cardinalite": "plusieurs vers un",
+      "filtrage": "dimension vers fait"
+    },
+    {
+      "fait": "faits_resultats",
+      "cle_etrangere": "pays_id",
+      "dimension": "dim_pays",
+      "cle_primaire": "pays_id",
+      "cardinalite": "plusieurs vers un",
+      "filtrage": "dimension vers fait"
+    },
+    {
+      "fait": "faits_resultats",
+      "cle_etrangere": "participation_id",
+      "dimension": "dim_participations",
+      "cle_primaire": "participation_id",
+      "cardinalite": "plusieurs vers un",
+      "filtrage": "dimension vers fait"
+    },
+    {
+      "fait": "faits_votes",
+      "cle_etrangere": "edition",
+      "dimension": "dim_editions",
+      "cle_primaire": "edition",
+      "cardinalite": "plusieurs vers un",
+      "filtrage": "dimension vers fait"
+    },
+    {
+      "fait": "faits_votes",
+      "cle_etrangere": "pays_destinataire_id",
+      "dimension": "dim_pays",
+      "cle_primaire": "pays_id",
+      "cardinalite": "plusieurs vers un",
+      "filtrage": "dimension vers fait"
+    },
+    {
+      "fait": "faits_votes",
+      "cle_etrangere": "participation_id",
+      "dimension": "dim_participations",
+      "cle_primaire": "participation_id",
+      "cardinalite": "plusieurs vers un",
+      "filtrage": "dimension vers fait"
+    },
+    {
+      "fait": "faits_resultats",
+      "cle_etrangere": "etape",
+      "dimension": "dim_etapes",
+      "cle_primaire": "etape",
+      "cardinalite": "plusieurs vers un",
+      "filtrage": "dimension vers fait"
+    },
+    {
+      "fait": "faits_votes",
+      "cle_etrangere": "pays_donneur_id",
+      "dimension": "dim_pays_donneurs",
+      "cle_primaire": "pays_id",
+      "cardinalite": "plusieurs vers un",
+      "filtrage": "dimension vers fait"
+    }
+  ],
+  "imputations_musicales": 0,
+  "code_notebook_sha256": "ee289f751bfbcf92604ffccfef65958d88729a930e375b86af73f18662716ae6",
+  "source_sha256": {
+    "data\\source\\eurovision_1998 to 2012.xlsx": "e29be6e7825aa1e04c87bc4e1b7d86a39511c20795221c01b1473b91ea86e2d6",
+    "data\\working\\fichier_avec_images.xlsx": "618f6a75447cc1bb6a263a6b4457ac3cbfdccc47156b37792e3b0e275a71ba2a",
+    "assets\\artists\\catalogue_images.csv": "9e74ca50c03d3522e629ab5c1f41efa9eee28aabf47a70a400d6bc8ab4ba69a9"
+  },
+  "relecture_excel": "toutes cellules validées ; tolérance numérique 1e-12"
+}

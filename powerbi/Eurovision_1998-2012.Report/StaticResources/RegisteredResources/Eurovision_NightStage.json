@@ -1,0 +1,292 @@
+{
+  "name": "Eurovision · Scène nocturne",
+  "dataColors": [
+    "#A78BFA",
+    "#22D3EE",
+    "#FBBF77",
+    "#F0A3D4",
+    "#7DD3B0",
+    "#C4B5FD",
+    "#93C5FD",
+    "#F8D978"
+  ],
+  "background": "#0B1020",
+  "secondaryBackground": "#171F35",
+  "foreground": "#F8FAFC",
+  "tableAccent": "#A78BFA",
+  "good": "#7DD3B0",
+  "neutral": "#FBBF77",
+  "bad": "#FCA5A5",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 14,
+      "color": "#F8FAFC"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 11,
+      "color": "#D5DEEE"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 34,
+      "color": "#F8FAFC"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#171F35"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": false
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ],
+        "title": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 14,
+            "fontColor": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            }
+          }
+        ],
+        "visualHeader": [
+          {
+            "foreground": {
+              "solid": {
+                "color": "#D5DEEE"
+              }
+            },
+            "background": {
+              "solid": {
+                "color": "#171F35"
+              }
+            }
+          }
+        ],
+        "visualTooltip": [
+          {
+            "background": {
+              "solid": {
+                "color": "#10182B"
+              }
+            },
+            "themedBackground": {
+              "solid": {
+                "color": "#10182B"
+              }
+            },
+            "titleFontColor": {
+              "solid": {
+                "color": "#D5DEEE"
+              }
+            },
+            "themedTitleFontColor": {
+              "solid": {
+                "color": "#D5DEEE"
+              }
+            },
+            "valueFontColor": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            },
+            "themedValueFontColor": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            },
+            "actionFontColor": {
+              "solid": {
+                "color": "#22D3EE"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#0B1020"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            },
+            "fontFamily": "Segoe UI",
+            "fontSize": 34
+          }
+        ],
+        "categoryLabels": [
+          {
+            "color": {
+              "solid": {
+                "color": "#D5DEEE"
+              }
+            },
+            "fontSize": 11
+          }
+        ]
+      }
+    },
+    "slicer": {
+      "*": {
+        "items": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            },
+            "background": {
+              "solid": {
+                "color": "#10182B"
+              }
+            },
+            "fontFamily": "Segoe UI",
+            "textSize": 11
+          }
+        ],
+        "header": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#D5DEEE"
+              }
+            },
+            "fontFamily": "Segoe UI",
+            "textSize": 11
+          }
+        ],
+        "dropdown": [
+          {
+            "iconColor": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            },
+            "iconTransparency": 0,
+            "borderColor": {
+              "solid": {
+                "color": "#627694"
+              }
+            }
+          }
+        ],
+        "selectionIcon": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            }
+          }
+        ],
+        "searchBox": [
+          {
+            "background": {
+              "solid": {
+                "color": "#10182B"
+              }
+            },
+            "borderColor": {
+              "solid": {
+                "color": "#627694"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "values": [
+          {
+            "fontColorPrimary": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            },
+            "fontColorSecondary": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            },
+            "backColorPrimary": {
+              "solid": {
+                "color": "#171F35"
+              }
+            },
+            "backColorSecondary": {
+              "solid": {
+                "color": "#202B45"
+              }
+            }
+          }
+        ],
+        "columnHeaders": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#D5DEEE"
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": "#171F35"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "firstLevelElements": "#F8FAFC",
+  "secondLevelElements": "#D5DEEE",
+  "thirdLevelElements": "#A8B9D4",
+  "fourthLevelElements": "#627694",
+  "foregroundLight": "#D5DEEE",
+  "foregroundDark": "#F8FAFC",
+  "foregroundNeutralLight": "#D5DEEE",
+  "foregroundNeutralDark": "#F8FAFC",
+  "foregroundSelected": "#F8FAFC",
+  "foregroundButton": "#F8FAFC",
+  "backgroundLight": "#202B45",
+  "backgroundNeutral": "#171F35",
+  "backgroundDark": "#0B1020"
+}

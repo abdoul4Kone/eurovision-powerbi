@@ -1,0 +1,100 @@
+﻿ligne_excel,Year,Country,etape,Song,duration
+4,2009,France,F,Et s'il fallait le faire,227.97333
+7,2009,Portugal,F,Todas as ruas do amor,253.46567
+11,2009,Russia,F,Mamo,170.56762
+12,2009,Azerbaijan,F,Always,248.33415
+24,2009,United Kingdom,F,It's My Time,197.47374
+28,2008,United Kingdom,F,Even If,224.07837
+30,2008,Germany,F,Disappear,198.04844
+31,2008,Armenia,F,"Qele, Qele",214.18041
+37,2008,Iceland,F,This is My Life,245.89887
+56,2007,Finland,F,Leave Me Alone,213.97333
+61,2007,Greece,F,Yassou Maria,30.02399
+62,2007,Georgia,F,Visionary Dream,170.07846
+64,2007,France,F,L'amour _ La Franaise,162.73088
+66,2007,Russia,F,Song #1,199.6419
+68,2007,Serbia,F,Molitva,218.04363
+70,2007,United Kingdom,F,Flying the Flag (for You),282.67927
+82,2006,Malta,F,I Do,257.50884
+89,2006,Lithuania,F,We Are The Winners,151.53333
+92,2006,Finland,F,Hard Rock Hallelujah,247.2
+95,2006,Croatia,F,Moja ?tikla,224.41796
+97,2006,Sweden,F,Invincible,445.75302
+100,2005,Hungary,F,"Forogj, vil_g!",396.77333
+102,2005,Malta,F,Angel,230.04844
+106,2005,Moldova,F,Boonika bate doba,239.50667
+115,2005,Ukraine,F,Razom nas bahato,159.29333
+116,2005,Germany,F,Run and Hide,239.53088
+121,2005,Switzerland,F,Cool Vibes,247.73333
+142,2004,Poland,F,Love Song,203.14667
+150,2003,Ireland,F,We've Got the World,203.69333
+151,2003,Turkey,F,Everyway That I Can,276.04853
+154,2003,Portugal,F,Deixa-me sonhar,336.49333
+169,2003,Belgium,F,Sanomi,247.89007
+176,2002,Austria,F,Say A Word,303.62077
+190,2002,France,F,Il faut du temps,237.11302
+196,2002,Latvia,F,I Wanna,224.95456
+203,2001,Russia,F,Lady Alpine Blue,292.73351
+205,2001,Lithuania,F,You Got Style,198.86975
+210,2001,Spain,F,Dile que la quiero,290.80925
+216,2001,Germany,F,Wer Liebe lebt,246.93506
+218,2001,Malta,F,Another Summer Night,318.22667
+224,2000,Estonia,F,Once in a Lifetime,289.97034
+225,2000,France,F,On aura le ciel,214.63619
+226,2000,Romania,F,The Moon,158.17333
+240,2000,Finland,F,A Little Bit,340.98617
+242,2000,Turkey,F,Yorgunum Anla,232.37333
+247,1999,Spain,F,No quiero escuchar,241.89333
+257,1999,Iceland,F,All Out of Luck,207.0751
+276,1998,Germany,F,Guildo hat euch lieb!,227.46231
+283,1998,United Kingdom,F,Where Are You?,194.93986
+301,2011,Germany,F,Taken By A Stranger,217.17007
+303,2011,Hungary,F,What About My Dreams?,249.97986
+306,2011,Italy,F,Madness Of Love,211.99955
+308,2011,Moldova,F,So Lucky,229.74667
+315,2011,Switzerland,F,In Love For A While,168.94921
+318,2012,Azerbaijan,F,When the Music Dies,201.85501
+323,2012,Estonia,F,Kuula,261.02966
+325,2012,Germany,F,Standing Still,205.85333
+330,2012,Italy,F,L'amore  femmina (Out of Love),30.14399
+336,2012,Romania,F,Zaleilah,219.07701
+340,2012,Sweden,F,Euphoria,214.16599
+346,2010,Azerbaijan,F,Drip Drop,222.49333
+370,2009,Czech Republic,SF1,Aven Romale,164.93333
+376,2009,Switzerland,SF1,The Highest Heights,168.24272
+379,2009,Bulgaria,SF1,Illusion,168.60844
+384,2009,Portugal,SF1,Todas as ruas do amor,253.46567
+398,2009,Azerbaijan,SF2,Always,248.33415
+405,2009,Netherlands,SF2,Shine,200.26884
+410,2008,San Marino,SF1,Complice,234.70676
+411,2008,Belgium,SF1,O Julissi,152.49088
+416,2008,Ireland,SF1,Irelande Douze Pointe,260.32
+419,2008,Armenia,SF1,"QŠlŠ, QŠlŠ",214.18041
+425,2008,Iceland,SF2,This Is My Life,245.89887
+429,2008,Lithuania,SF2,Nomads in the Night,165.60435
+432,2008,Czech Republic,SF2,Have Some Fun,227.23156
+446,2007,Cyprus,SF1,"Comme ci, comme ša",229.90667
+449,2007,Georgia,SF1,Visionary Dream,170.07846
+458,2007,Serbia,SF1,Molitva,218.04363
+460,2007,Portugal,SF1,Danša comigo,170.10893
+470,2007,Austria,SF1,Get a Life - Get Alive,320.28
+473,2006,Bulgaria,SF1,Let Me Cry,256.16209
+487,2006,Finland,SF1,Hard Rock Hallelujah,247.2
+489,2006,Lithuania,SF1,We Are The Winners,151.53333
+491,2006,Sweden,SF1,Invincible,445.75302
+498,2005,Moldova,SF1,Boonika bate doba,239.50667
+500,2005,Monaco,SF1,Tout de moi,215.94667
+503,2005,Netherlands,SF1,My Impossible Dream,165.29805
+509,2005,Hungary,SF1,"Forogj, vil_g!",396.77333
+513,2005,Switzerland,SF1,Cool Vibes,247.73333
+551,2011,Moldova,SF1,So Lucky,229.74667
+556,2011,Israel,SF1,Ding Dong,170.06249
+567,2011,Hungary,SF2,What About My Dreams?,249.97986
+570,2011,Switzerland,SF2,In Love For A While,168.94921
+574,2011,Albania,SF2,Feel The Passion,235.77497
+589,2012,Estonia,SF1,Kuula,261.02966
+606,2012,Romania,SF2,Zaleilah,219.07701
+608,2012,San Marino,SF2,The Social Network Song (Oh Oh _ Uh - Oh Oh),260.62503
+612,2012,Sweden,SF2,Euphoria,214.16599
+618,2010,Azerbaijan,SF2,Drip Drop,222.49333
+634,2010,Lithuania,SF2,Eastern European Funk,160.39138

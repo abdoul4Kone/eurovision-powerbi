@@ -1,0 +1,112 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY23SU08",
+      "reportVersionAtImport": {
+        "visual": "1.8.83",
+        "report": "2.0.83",
+        "page": "1.3.83"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Eurovision_NightStage.json",
+      "reportVersionAtImport": {
+        "visual": "1.8.83",
+        "report": "2.0.83",
+        "page": "1.3.83"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "networkGraphA96234ADB8D143D1837FEC426BB34781",
+    "multiLevelHeatMap847C7566C3104776AB0F4EEDFCBF00D1",
+    "TableHeatMap1443716069308",
+    "simpleImageEBC4593F96F1425FB3D84C5BF02B5075"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY23SU08",
+          "path": "BaseThemes/CY23SU08.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "arri_re_plan17524151249956716.png",
+          "path": "arri_re_plan17524151249956716.png",
+          "type": "Image"
+        },
+        {
+          "name": "arri_re_plan228638613353114795.png",
+          "path": "arri_re_plan228638613353114795.png",
+          "type": "Image"
+        },
+        {
+          "name": "arri_re_plan6662661689542344.png",
+          "path": "arri_re_plan6662661689542344.png",
+          "type": "Image"
+        },
+        {
+          "name": "Eurovision_NightStage.json",
+          "path": "Eurovision_NightStage.json",
+          "type": "CustomTheme"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "filterPaneHiddenInEditMode": true,
+    "useDefaultAggregateDisplayName": true
+  },
+  "slowDataSourceSettings": {
+    "isCrossHighlightingDisabled": false,
+    "isSlicerSelectionsButtonEnabled": false,
+    "isFilterSelectionsButtonEnabled": false,
+    "isFieldWellButtonEnabled": false,
+    "isApplyAllButtonEnabled": false
+  }
+}

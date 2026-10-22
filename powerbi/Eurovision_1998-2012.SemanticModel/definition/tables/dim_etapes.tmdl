@@ -1,0 +1,36 @@
+table dim_etapes
+	lineageTag: 26dcee4b-c4b7-5919-8aa6-9da1815c072f
+
+	column etape
+		dataType: string
+		lineageTag: 9210ecbd-74e2-5c04-8e75-ffe50d78cd0c
+		summarizeBy: none
+		sourceColumn: etape
+
+	column libelle_etape
+		dataType: string
+		lineageTag: d0f15d0b-5fb3-54d1-9c84-9b029bb736db
+		summarizeBy: none
+		sourceColumn: libelle_etape
+		sortByColumn: ordre_etape
+
+	column ordre_etape
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 0a54f810-75f8-5740-9426-3d82bdaa9211
+		summarizeBy: none
+		sourceColumn: ordre_etape
+
+	partition dim_etapes = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DossierDonnees & "\eurovision_constellation.xlsx"), null, true),
+				    Donnees = Table.PromoteHeaders(Source{[Item="dim_etapes",Kind="Sheet"]}[Data], [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Donnees, {{"etape", type text}, {"libelle_etape", type text}, {"ordre_etape", Int64.Type}}, "en-US")
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+

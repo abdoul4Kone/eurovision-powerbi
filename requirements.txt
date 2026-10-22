@@ -1,0 +1,11 @@
+# Environnement direct vérifié avec Python 3.12.0
+pandas==3.0.5
+numpy==2.5.3
+openpyxl==3.1.5
+matplotlib==3.11.2
+scipy==1.18.1
+Pillow==12.3.0
+nbformat==5.11.1
+nbclient==0.11.0
+ipykernel==7.3.0
+jupyterlab==4.6.3

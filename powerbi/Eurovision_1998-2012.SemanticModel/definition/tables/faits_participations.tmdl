@@ -1,0 +1,231 @@
+table faits_participations
+	lineageTag: 32d348f4-1e49-5b2a-8ab3-471502669b9e
+
+	column participation_id
+		dataType: string
+		isHidden
+		lineageTag: e8864eff-7583-57fd-b5d0-1aae7f49ad68
+		summarizeBy: none
+		sourceColumn: participation_id
+
+	column edition
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fd094544-01ff-5c3f-9ac9-c766194eb625
+		summarizeBy: none
+		sourceColumn: edition
+
+	column pays_id
+		dataType: string
+		isHidden
+		lineageTag: 90a26bbb-ab05-54b5-b679-aac961712186
+		summarizeBy: none
+		sourceColumn: pays_id
+
+	column energy
+		dataType: double
+		formatString: 0.000
+		lineageTag: 0a307dc1-4e40-565a-bcf7-0b95d55de002
+		summarizeBy: none
+		sourceColumn: energy
+
+	column duration
+		dataType: double
+		formatString: 0.000
+		lineageTag: dc284fbf-6fa3-5638-95d4-707b8066bfff
+		summarizeBy: none
+		sourceColumn: duration
+
+	column acousticness
+		dataType: double
+		formatString: 0.000
+		lineageTag: 56e6dabf-23a4-554f-a5b6-ef52b26128a2
+		summarizeBy: none
+		sourceColumn: acousticness
+
+	column danceability
+		dataType: double
+		formatString: 0.000
+		lineageTag: 12381556-2c40-5935-8b79-23c3aa4b8aeb
+		summarizeBy: none
+		sourceColumn: danceability
+
+	column tempo
+		dataType: double
+		formatString: 0.000
+		lineageTag: d05852c3-c773-5e2b-b919-28705be8ed22
+		summarizeBy: none
+		sourceColumn: tempo
+
+	column speechiness
+		dataType: double
+		formatString: 0.000
+		lineageTag: b82a6a64-3c03-5685-b161-02738effa27a
+		summarizeBy: none
+		sourceColumn: speechiness
+
+	column key
+		dataType: int64
+		formatString: #,0
+		lineageTag: 36a95188-16e7-5409-b1ab-3f6048ba1125
+		summarizeBy: none
+		sourceColumn: key
+
+	column liveness
+		dataType: double
+		formatString: 0.000
+		lineageTag: 3a7d8d68-5fef-5be0-adfb-7ee8323c0095
+		summarizeBy: none
+		sourceColumn: liveness
+
+	column time_signature
+		dataType: int64
+		formatString: #,0
+		lineageTag: 310b4e78-31a5-522d-8d93-5e041a7e7d56
+		summarizeBy: none
+		sourceColumn: time_signature
+
+	column mode
+		dataType: int64
+		formatString: #,0
+		lineageTag: 47253187-85e5-5081-858c-2b1457cf6a21
+		summarizeBy: none
+		sourceColumn: mode
+
+	column loudness
+		dataType: double
+		formatString: 0.000
+		lineageTag: 946c8e71-9eca-501a-86ee-a0f12255fb96
+		summarizeBy: none
+		sourceColumn: loudness
+
+	column valence
+		dataType: double
+		formatString: 0.000
+		lineageTag: bdfe472d-007f-5269-b574-9948e385cd19
+		summarizeBy: none
+		sourceColumn: valence
+
+	column happiness_source
+		dataType: double
+		formatString: 0.000
+		lineageTag: bd07a1ac-93e1-5c1e-be59-c046fae9fbfa
+		summarizeBy: none
+		sourceColumn: happiness_source
+
+	column energy_disponible
+		dataType: boolean
+		lineageTag: ca1a28ca-343d-5807-99c1-c1718b591319
+		summarizeBy: none
+		sourceColumn: energy_disponible
+
+	column duration_disponible
+		dataType: boolean
+		lineageTag: 2c871020-4e98-5d88-b0f5-fc8c8556b236
+		summarizeBy: none
+		sourceColumn: duration_disponible
+
+	column acousticness_disponible
+		dataType: boolean
+		lineageTag: 5ec1adcf-44a2-5b39-94d5-61fdbb9ae3e8
+		summarizeBy: none
+		sourceColumn: acousticness_disponible
+
+	column danceability_disponible
+		dataType: boolean
+		lineageTag: e2208641-efe5-5a28-86d1-971c26ea16bd
+		summarizeBy: none
+		sourceColumn: danceability_disponible
+
+	column tempo_disponible
+		dataType: boolean
+		lineageTag: de1f985e-67e5-5c34-8a4d-9edd200edd2b
+		summarizeBy: none
+		sourceColumn: tempo_disponible
+
+	column speechiness_disponible
+		dataType: boolean
+		lineageTag: 8a54c448-2e78-538f-879d-3a9c64f6090a
+		summarizeBy: none
+		sourceColumn: speechiness_disponible
+
+	column key_disponible
+		dataType: boolean
+		lineageTag: e7ca8e23-608f-535e-ba76-284d55566e6a
+		summarizeBy: none
+		sourceColumn: key_disponible
+
+	column liveness_disponible
+		dataType: boolean
+		lineageTag: 147f3307-b179-5d48-838e-afea793b9cd8
+		summarizeBy: none
+		sourceColumn: liveness_disponible
+
+	column time_signature_disponible
+		dataType: boolean
+		lineageTag: c18f9355-40cd-5927-8273-2e869ca3a493
+		summarizeBy: none
+		sourceColumn: time_signature_disponible
+
+	column mode_disponible
+		dataType: boolean
+		lineageTag: a48373d1-23eb-531b-aa9f-66bb4f3adef7
+		summarizeBy: none
+		sourceColumn: mode_disponible
+
+	column loudness_disponible
+		dataType: boolean
+		lineageTag: cb34e0e6-ebdb-563a-8293-9d465b49cded
+		summarizeBy: none
+		sourceColumn: loudness_disponible
+
+	column valence_disponible
+		dataType: boolean
+		lineageTag: b9a1363e-7e1a-5c1a-91fd-4b32960be395
+		summarizeBy: none
+		sourceColumn: valence_disponible
+
+	column Happiness_disponible
+		dataType: boolean
+		lineageTag: 4d1728be-bc54-541b-9ffa-ea831f383f16
+		summarizeBy: none
+		sourceColumn: Happiness_disponible
+
+	column profil_complet
+		dataType: boolean
+		lineageTag: af42fa86-7b8b-5918-b680-7a33e42f13b2
+		summarizeBy: none
+		sourceColumn: profil_complet
+
+	column duree_atypique
+		dataType: boolean
+		lineageTag: 35216d05-8ebe-5478-96fc-c29dffee7941
+		summarizeBy: none
+		sourceColumn: duree_atypique
+
+	column est_finaliste
+		dataType: boolean
+		lineageTag: 02c29887-bec6-5713-9a74-7840363cc198
+		summarizeBy: none
+		sourceColumn: est_finaliste
+
+	column nombre_passages
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9b6a85cd-43ae-52d8-a4e9-1168d917349f
+		summarizeBy: none
+		sourceColumn: nombre_passages
+
+	partition faits_participations = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DossierDonnees & "\eurovision_constellation.xlsx"), null, true),
+				    Donnees = Table.PromoteHeaders(Source{[Item="faits_participations",Kind="Sheet"]}[Data], [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Donnees, {{"participation_id", type text}, {"edition", Int64.Type}, {"pays_id", type text}, {"energy", type number}, {"duration", type number}, {"acousticness", type number}, {"danceability", type number}, {"tempo", type number}, {"speechiness", type number}, {"key", Int64.Type}, {"liveness", type number}, {"time_signature", Int64.Type}, {"mode", Int64.Type}, {"loudness", type number}, {"valence", type number}, {"happiness_source", type number}, {"energy_disponible", type logical}, {"duration_disponible", type logical}, {"acousticness_disponible", type logical}, {"danceability_disponible", type logical}, {"tempo_disponible", type logical}, {"speechiness_disponible", type logical}, {"key_disponible", type logical}, {"liveness_disponible", type logical}, {"time_signature_disponible", type logical}, {"mode_disponible", type logical}, {"loudness_disponible", type logical}, {"valence_disponible", type logical}, {"Happiness_disponible", type logical}, {"profil_complet", type logical}, {"duree_atypique", type logical}, {"est_finaliste", type logical}, {"nombre_passages", Int64.Type}}, "en-US")
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+

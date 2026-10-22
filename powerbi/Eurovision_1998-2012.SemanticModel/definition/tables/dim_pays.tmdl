@@ -1,0 +1,42 @@
+table dim_pays
+	lineageTag: d847b399-4231-5dc2-ac9e-84e23d6c10fc
+
+	column pays_id
+		dataType: string
+		isHidden
+		lineageTag: abb6fa55-9e09-5ee8-8f4b-2906e6125edc
+		summarizeBy: none
+		sourceColumn: pays_id
+
+	column pays_source
+		dataType: string
+		lineageTag: e6f842bc-fa3d-506f-9294-414c63fb0dd3
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: pays_source
+
+	column pays_fr
+		dataType: string
+		lineageTag: 0dd59584-8a81-54e5-ad37-77ad963f23ef
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: pays_fr
+
+	column entite_historique
+		dataType: boolean
+		lineageTag: 1a8ec1ab-b6cc-57e4-ac6c-cd06d6af5ec5
+		summarizeBy: none
+		sourceColumn: entite_historique
+
+	partition dim_pays = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DossierDonnees & "\eurovision_constellation.xlsx"), null, true),
+				    Donnees = Table.PromoteHeaders(Source{[Item="dim_pays",Kind="Sheet"]}[Data], [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Donnees, {{"pays_id", type text}, {"pays_source", type text}, {"pays_fr", type text}, {"entite_historique", type logical}}, "en-US")
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+

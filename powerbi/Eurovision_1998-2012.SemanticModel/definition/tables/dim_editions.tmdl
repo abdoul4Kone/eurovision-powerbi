@@ -1,0 +1,29 @@
+table dim_editions
+	lineageTag: b865723d-5fd5-549e-8812-7ca86cdbdb19
+
+	column edition
+		dataType: int64
+		formatString: 0
+		lineageTag: 335b9abe-8b64-5f76-a5af-e3a1ca9f8e84
+		summarizeBy: none
+		sourceColumn: edition
+
+	column nombre_demi_finales
+		dataType: int64
+		formatString: #,0
+		lineageTag: c8e6fc0b-74ca-5697-833a-b40335622294
+		summarizeBy: none
+		sourceColumn: nombre_demi_finales
+
+	partition dim_editions = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DossierDonnees & "\eurovision_constellation.xlsx"), null, true),
+				    Donnees = Table.PromoteHeaders(Source{[Item="dim_editions",Kind="Sheet"]}[Data], [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Donnees, {{"edition", Int64.Type}, {"nombre_demi_finales", Int64.Type}}, "en-US")
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+

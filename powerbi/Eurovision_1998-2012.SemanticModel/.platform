@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Eurovision_1998-2012"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a4f7072d-e011-4bb0-a0cc-3f925de90e5c"
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "ReportSection4798e5c08dfd79320ce3",
+  "displayName": "Musique & résultats",
+  "displayOption": "FitToPage",
+  "height": 900,
+  "width": 1440,
+  "pageBinding": {
+    "name": "music_results_page",
+    "type": "Default",
+    "parameters": []
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Eurovision - Musique et résultats'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "arri_re_plan17524151249956716.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fit'"
+                  }
+                }
+              }
+            }
+          },
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#0B1020'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspace": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#0B1020'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "music_finals_only",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "faits_resultats"
+              }
+            },
+            "Property": "est_finale"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "src0_faits_resultats",
+              "Entity": "faits_resultats",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "src0_faits_resultats"
+                          }
+                        },
+                        "Property": "est_finale"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "true"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "isLockedInViewMode": true,
+        "isHiddenInViewMode": true
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "music_energy_timeline",
+      "target": "music_filter_country",
+      "type": "NoFilter"
+    },
+    {
+      "source": "music_energy_timeline",
+      "target": "music_filter_year",
+      "type": "NoFilter"
+    },
+    {
+      "source": "music_profile",
+      "target": "music_filter_country",
+      "type": "NoFilter"
+    },
+    {
+      "source": "music_profile",
+      "target": "music_filter_year",
+      "type": "NoFilter"
+    },
+    {
+      "source": "music_scatter",
+      "target": "music_filter_country",
+      "type": "NoFilter"
+    },
+    {
+      "source": "music_scatter",
+      "target": "music_filter_year",
+      "type": "NoFilter"
+    }
+  ]
+}

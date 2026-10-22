@@ -1,0 +1,80 @@
+table faits_votes
+	lineageTag: 205488fa-a8d2-5d52-9692-be38a40c3057
+
+	column vote_id
+		dataType: string
+		isHidden
+		lineageTag: e25decde-b12f-5fa5-8827-0967c012f0b5
+		summarizeBy: none
+		sourceColumn: vote_id
+
+	column edition
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9794eeeb-f70d-517f-8ca3-26e829752dd4
+		summarizeBy: none
+		sourceColumn: edition
+
+	column participation_id
+		dataType: string
+		isHidden
+		lineageTag: 8a45fd21-d8fb-5831-8afb-70d16730aa63
+		summarizeBy: none
+		sourceColumn: participation_id
+
+	column pays_destinataire_id
+		dataType: string
+		isHidden
+		lineageTag: 8663f11a-f1cd-5cc6-b088-3ac37c574fca
+		summarizeBy: none
+		sourceColumn: pays_destinataire_id
+
+	column pays_donneur_id
+		dataType: string
+		isHidden
+		lineageTag: 33948cef-d736-5158-a8b2-92df99778972
+		summarizeBy: none
+		sourceColumn: pays_donneur_id
+
+	column points
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8051af75-5725-59da-9d14-c859a9fb0438
+		summarizeBy: none
+		sourceColumn: points
+
+	column score_source
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 4614a47d-f806-54ff-a270-44bf7c5baf47
+		summarizeBy: none
+		sourceColumn: score_source
+
+	column vote_corrige
+		dataType: boolean
+		lineageTag: 14d770e9-90ee-5b45-b0b0-abdf60660629
+		summarizeBy: none
+		sourceColumn: vote_corrige
+
+	column ligne_excel
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 1a66020c-bfcf-5110-a1f6-799c6db06cda
+		summarizeBy: none
+		sourceColumn: ligne_excel
+
+	partition faits_votes = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DossierDonnees & "\eurovision_constellation.xlsx"), null, true),
+				    Donnees = Table.PromoteHeaders(Source{[Item="faits_votes",Kind="Sheet"]}[Data], [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Donnees, {{"vote_id", type text}, {"edition", Int64.Type}, {"participation_id", type text}, {"pays_destinataire_id", type text}, {"pays_donneur_id", type text}, {"points", Int64.Type}, {"score_source", Int64.Type}, {"vote_corrige", type logical}, {"ligne_excel", Int64.Type}}, "en-US")
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+

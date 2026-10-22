@@ -1,0 +1,44 @@
+relationship bd8aa74f-cd1d-5014-bce8-b85d8767cceb
+	fromColumn: faits_participations.edition
+	toColumn: dim_editions.edition
+
+relationship d6eeaa51-1e30-5a39-b109-258f486f2df0
+	fromColumn: faits_participations.pays_id
+	toColumn: dim_pays.pays_id
+
+relationship e17e0035-9ad3-5eb4-a0d2-b4288b4a44a9
+	fromColumn: faits_participations.participation_id
+	toColumn: dim_participations.participation_id
+
+relationship 54905996-c675-5173-bde8-ac7dc9b54c35
+	fromColumn: faits_resultats.edition
+	toColumn: dim_editions.edition
+
+relationship eaf12d15-8bf4-5174-8757-f17e36e18686
+	fromColumn: faits_resultats.pays_id
+	toColumn: dim_pays.pays_id
+
+relationship 8f49f515-7b01-58c2-b41b-1887a5f46a13
+	fromColumn: faits_resultats.participation_id
+	toColumn: dim_participations.participation_id
+
+relationship f60c85fb-efa7-57fa-9f12-b5502d9cfc03
+	fromColumn: faits_votes.edition
+	toColumn: dim_editions.edition
+
+relationship dee51ca2-9c71-5fd0-a3a3-c268e8ff729e
+	fromColumn: faits_votes.pays_destinataire_id
+	toColumn: dim_pays.pays_id
+
+relationship d78327cd-2aec-5c82-a535-7ca2f7496666
+	fromColumn: faits_votes.participation_id
+	toColumn: dim_participations.participation_id
+
+relationship a1616150-7717-5a49-a2be-5badf5725554
+	fromColumn: faits_resultats.etape
+	toColumn: dim_etapes.etape
+
+relationship 270e6d19-d55c-5476-ab16-c4880214ec86
+	fromColumn: faits_votes.pays_donneur_id
+	toColumn: dim_pays_donneurs.pays_id
+

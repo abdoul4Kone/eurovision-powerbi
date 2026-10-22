@@ -1,0 +1,25 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+
+annotation PBI_QueryOrder = ["dim_editions","dim_pays","dim_pays_donneurs","dim_participations","dim_etapes","faits_participations","faits_resultats","faits_votes","Mesures","DossierDonnees"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Mesures
+ref table dim_editions
+ref table dim_pays
+ref table dim_pays_donneurs
+ref table dim_participations
+ref table dim_etapes
+ref table faits_participations
+ref table faits_resultats
+ref table faits_votes
+
+ref cultureInfo en-US
+

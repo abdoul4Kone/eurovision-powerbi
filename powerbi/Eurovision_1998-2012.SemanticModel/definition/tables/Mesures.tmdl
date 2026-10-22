@@ -1,0 +1,557 @@
+table Mesures
+	lineageTag: 8eeb3306-7b35-5cd0-b0c2-8fbb9325c982
+
+	measure Éditions = COALESCE(DISTINCTCOUNT(faits_participations[edition]), 0)
+		formatString: #,0
+		displayFolder: Vue d’ensemble
+		lineageTag: f68dc52d-256e-5934-83aa-c77222edffc9
+
+	measure 'Pays représentés' = COALESCE(DISTINCTCOUNT(faits_participations[pays_id]), 0)
+		formatString: #,0
+		displayFolder: Vue d’ensemble
+		lineageTag: c096fcb7-e3d4-514f-ac41-659fcb465e97
+
+	/// Une ligne par pays et édition, sans double comptage des passages.
+	measure Participations = COALESCE(COUNTROWS(faits_participations), 0)
+		formatString: #,0
+		displayFolder: Vue d’ensemble
+		lineageTag: 6789c999-3530-50a4-947b-4497fdac2fe1
+
+	measure 'Passages en finale' = COALESCE(CALCULATE(COUNTROWS(faits_resultats), KEEPFILTERS(faits_resultats[est_finale] = TRUE())), 0)
+		formatString: #,0
+		displayFolder: Vue d’ensemble
+		lineageTag: 5555bdd7-67a0-528b-8b20-3521b093bf88
+
+	measure 'Pays en finale' = CALCULATE(DISTINCTCOUNT(faits_resultats[pays_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+		formatString: #,0
+		displayFolder: Vue d’ensemble
+		lineageTag: 2fc5b988-8089-5e76-a9df-6dcf6a8a25fd
+
+	measure Victoires = CALCULATE(COUNTROWS(faits_resultats), KEEPFILTERS(faits_resultats[est_finale] = TRUE()), KEEPFILTERS(faits_resultats[place] = 1))
+		formatString: #,0
+		displayFolder: Vue d’ensemble
+		lineageTag: d9262485-f70f-5bcc-8682-e51e20b5ad36
+
+	measure 'Pays en tête' =
+			VAR Classement = FILTER(ADDCOLUMNS(VALUES(dim_pays[pays_fr]), "__Victoires", [Victoires]), [__Victoires] > 0)
+			VAR Maximum = MAXX(Classement, [__Victoires])
+			VAR Leaders = FILTER(Classement, [__Victoires] = Maximum)
+			RETURN IF(COUNTROWS(Leaders) = 0, "Aucune victoire", IF(COUNTROWS(Leaders) > 1, FORMAT(COUNTROWS(Leaders), "0") & " pays à égalité", CONCATENATEX(Leaders, dim_pays[pays_fr], ", ")))
+		displayFolder: Vue d’ensemble
+		lineageTag: 5bd8e8a4-8a7c-52d8-b096-c757e5181dfe
+
+	measure 'Victoires en tête' =
+			VAR Classement = ADDCOLUMNS(VALUES(dim_pays[pays_fr]), "__Victoires", [Victoires])
+			RETURN COALESCE(MAXX(Classement, [__Victoires]), 0)
+		formatString: #,0
+		displayFolder: Vue d’ensemble
+		lineageTag: 32a367bf-1b61-59a5-91d8-5d5d513a8259
+
+	measure 'Contexte du palmarès' =
+			VAR Nombre = [Victoires en tête]
+			VAR Gagnants = [Victoires]
+			RETURN IF(Nombre = 0, "Aucune première place en finale dans cette sélection.", FORMAT(Nombre, "0") & IF(Nombre = 1, " victoire", " victoires") & " sur " & FORMAT(Gagnants, "0") & IF(Gagnants = 1, " finale remportée dans la sélection.", " finales remportées dans la sélection."))
+		displayFolder: Vue d’ensemble
+		lineageTag: 95bbd474-8834-5231-9f88-df85eeea5bea
+
+	/// Finalistes renseignés seulement ; aucune valeur manquante remplacée par zéro.
+	measure 'Énergie moyenne' =
+			VAR IdsFinale = CALCULATETABLE(VALUES(faits_resultats[participation_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN CALCULATE(AVERAGE(faits_participations[energy]), KEEPFILTERS(TREATAS(IdsFinale, faits_participations[participation_id])))
+		formatString: 0.00
+		displayFolder: Musique
+		lineageTag: cc603396-a59c-588d-a109-385a8a67eb8f
+
+	/// Finalistes renseignés seulement ; aucune valeur manquante remplacée par zéro.
+	measure 'Dansabilité moyenne' =
+			VAR IdsFinale = CALCULATETABLE(VALUES(faits_resultats[participation_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN CALCULATE(AVERAGE(faits_participations[danceability]), KEEPFILTERS(TREATAS(IdsFinale, faits_participations[participation_id])))
+		formatString: 0.00
+		displayFolder: Musique
+		lineageTag: 2611f6b2-2337-52bf-bc3d-0ee1e1cb0a83
+
+	/// Finalistes renseignés seulement ; aucune valeur manquante remplacée par zéro.
+	measure 'Tempo moyen' =
+			VAR IdsFinale = CALCULATETABLE(VALUES(faits_resultats[participation_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN CALCULATE(AVERAGE(faits_participations[tempo]), KEEPFILTERS(TREATAS(IdsFinale, faits_participations[participation_id])))
+		formatString: 0.0
+		displayFolder: Musique
+		lineageTag: a6d185bc-31c1-5251-9a3f-0df2ff9cdf0f
+
+	measure 'Finalistes documentés' =
+			VAR IdsFinale = CALCULATETABLE(VALUES(faits_resultats[participation_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN COALESCE(CALCULATE(COUNTROWS(faits_participations), KEEPFILTERS(TREATAS(IdsFinale, faits_participations[participation_id])), KEEPFILTERS(FILTER(faits_participations, NOT ISBLANK(faits_participations[energy]) && NOT ISBLANK(faits_participations[danceability]) && NOT ISBLANK(faits_participations[tempo])))), 0)
+		formatString: #,0
+		displayFolder: Musique
+		lineageTag: d3821b77-6948-5073-94f1-7be6ab1c55ae
+
+	measure 'Couverture acoustique' = DIVIDE([Finalistes documentés], [Passages en finale])
+		formatString: 0%
+		displayFolder: Musique
+		lineageTag: b8455a66-6ea9-5483-b307-f8453419b1a3
+
+	measure 'Finalistes documentés · affichage' = FORMAT([Finalistes documentés], "0") & " / " & FORMAT([Passages en finale], "0")
+		displayFolder: Musique
+		lineageTag: ed710fa4-1fd4-552e-84d4-43a1aff38aad
+
+	measure 'Couverture · affichage' = IF([Passages en finale] = 0, "Aucun finaliste dans la sélection", FORMAT([Couverture acoustique], "0%") & " de la sélection documentée")
+		displayFolder: Musique
+		lineageTag: 83d994d9-f308-55ef-9faf-a73c918ce487
+
+	measure 'Profils complets' =
+			VAR IdsFinale = CALCULATETABLE(VALUES(faits_resultats[participation_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN COALESCE(CALCULATE(COUNTROWS(faits_participations), KEEPFILTERS(TREATAS(IdsFinale, faits_participations[participation_id])), KEEPFILTERS(faits_participations[profil_complet] = TRUE())), 0)
+		formatString: #,0
+		displayFolder: Musique
+		lineageTag: 853c3f13-a2af-5103-9752-e3308a347d7a
+
+	measure 'Profils · affichage' = FORMAT([Profils complets], "0") & " profils complets · énergie, dansabilité et acousticité"
+		displayFolder: Musique
+		lineageTag: 88b6453a-dfe2-5e40-9c71-1ce7c675013f
+
+	/// Même échantillon de finalistes complets pour les trois indices du profil.
+	measure 'Énergie · profil' =
+			VAR IdsFinale = CALCULATETABLE(VALUES(faits_resultats[participation_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN CALCULATE(AVERAGE(faits_participations[energy]), KEEPFILTERS(TREATAS(IdsFinale, faits_participations[participation_id])), KEEPFILTERS(faits_participations[profil_complet] = TRUE()))
+		formatString: 0.00
+		displayFolder: Musique
+		lineageTag: f8459b33-c28d-52be-91ea-64dc2636a434
+
+	/// Même échantillon de finalistes complets pour les trois indices du profil.
+	measure 'Dansabilité · profil' =
+			VAR IdsFinale = CALCULATETABLE(VALUES(faits_resultats[participation_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN CALCULATE(AVERAGE(faits_participations[danceability]), KEEPFILTERS(TREATAS(IdsFinale, faits_participations[participation_id])), KEEPFILTERS(faits_participations[profil_complet] = TRUE()))
+		formatString: 0.00
+		displayFolder: Musique
+		lineageTag: 0b13c781-e3cc-53bd-8c80-594d8b6b27e9
+
+	/// Même échantillon de finalistes complets pour les trois indices du profil.
+	measure 'Acoustique · profil' =
+			VAR IdsFinale = CALCULATETABLE(VALUES(faits_resultats[participation_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN CALCULATE(AVERAGE(faits_participations[acousticness]), KEEPFILTERS(TREATAS(IdsFinale, faits_participations[participation_id])), KEEPFILTERS(faits_participations[profil_complet] = TRUE()))
+		formatString: 0.00
+		displayFolder: Musique
+		lineageTag: 5108bc89-3a71-5089-8b3d-b400345f7b79
+
+	/// Ratio pré-calculé sur la finale entière ; le dénominateur ne change pas avec les filtres du rapport.
+	measure 'Part des points en finale' = CALCULATE(AVERAGE(faits_resultats[part_points_etape]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+		formatString: 0.0%
+		displayFolder: Musique
+		lineageTag: 8ff6c8a3-e495-561a-a032-56ac99bdd68d
+
+	measure 'Points en finale' = CALCULATE(SUM(faits_resultats[points]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+		formatString: #,0
+		displayFolder: Résultats
+		lineageTag: a9c9b7bf-63b8-5ec9-b432-03ec21ffa6a9
+
+	measure 'Points reçus en finale' = SUM(faits_votes[points])
+		formatString: #,0
+		displayFolder: Votes
+		lineageTag: e0c2796e-fca8-5b2e-8235-b7c1652940af
+
+	measure 'Artiste sélectionné' =
+			VAR __SelectionId = SELECTEDVALUE(faits_participations[participation_id])
+			RETURN IF(ISBLANK(__SelectionId), "Choisir un artiste", COALESCE(LOOKUPVALUE(dim_participations[artiste], dim_participations[participation_id], __SelectionId), "Choisir un artiste"))
+		displayFolder: Artistes & chansons
+		lineageTag: ab173fc5-5fa4-55ac-b493-9485dac439b2
+
+	measure 'Participations de l’artiste' = COALESCE(COUNTROWS(faits_participations), 0)
+		formatString: #,0
+		displayFolder: Artistes & chansons
+		lineageTag: ef89d1ad-ce32-5e49-a837-251e9fddb67d
+
+	measure 'Pays de l’artiste' =
+			VAR __SelectionId = SELECTEDVALUE(faits_participations[participation_id])
+			RETURN IF(ISBLANK(__SelectionId), "-", COALESCE(LOOKUPVALUE(dim_participations[pays_fr], dim_participations[participation_id], __SelectionId), "-"))
+		displayFolder: Artistes & chansons
+		lineageTag: 4b1cc55c-4442-552a-a58a-23bcf72230ce
+
+	measure 'Genre renseigné' =
+			VAR __SelectionId = SELECTEDVALUE(faits_participations[participation_id])
+			RETURN IF(ISBLANK(__SelectionId), "Non renseigné", COALESCE(LOOKUPVALUE(dim_participations[genre_source], dim_participations[participation_id], __SelectionId), "Non renseigné"))
+		displayFolder: Artistes & chansons
+		lineageTag: 35830488-6c0d-5151-aca2-90a8ba8edd68
+
+	/// Vide si la sélection ne désigne pas un classement de finale unique.
+	measure 'Classement en finale' = CALCULATE(SELECTEDVALUE(faits_resultats[place]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+		formatString: 0
+		displayFolder: Artistes
+		lineageTag: 81b6aca6-a85f-53d0-bfef-a7f6f32e8ab5
+
+	measure 'Chanson sélectionnée' =
+			VAR __SelectionId = SELECTEDVALUE(faits_participations[participation_id])
+			RETURN IF(ISBLANK(__SelectionId), "Dans le filtre Participation", COALESCE(LOOKUPVALUE(dim_participations[chanson], dim_participations[participation_id], __SelectionId), "Dans le filtre Participation"))
+		displayFolder: Artistes & chansons
+		lineageTag: 76f9e758-77eb-5ac0-91cf-8d066b04a0bb
+
+	measure 'Formation sélectionnée' =
+			VAR __SelectionId = SELECTEDVALUE(faits_participations[participation_id])
+			RETURN IF(ISBLANK(__SelectionId), "Non renseignée", SWITCH(LOOKUPVALUE(dim_participations[formation_source], dim_participations[participation_id], __SelectionId), "Solo", "Soliste", "Group", "Groupe", "Non renseignée"))
+		displayFolder: Artistes & chansons
+		lineageTag: 835d837b-3e73-515a-8494-d8b054cfe4aa
+
+	measure 'Portrait sélectionné' =
+			VAR __SelectionId = SELECTEDVALUE(faits_participations[participation_id])
+			VAR __Neutre = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 354 268'><rect width='354' height='268' fill='%2310182B'/><g transform='translate(153 110)' fill='none' stroke='%23627694' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><rect x='17' y='2' width='14' height='28' rx='7'/><path d='M10 23v3a14 14 0 0 0 28 0v-3M24 40v8M16 48h16'/></g></svg>"
+			RETURN IF(ISBLANK(__SelectionId), __Neutre, COALESCE(LOOKUPVALUE(dim_participations[image_url], dim_participations[participation_id], __SelectionId), __Neutre))
+		displayFolder: Artistes & chansons
+		lineageTag: a9211893-6938-5903-a982-21a8367a5cb2
+		dataCategory: ImageUrl
+
+	measure 'Crédit du portrait' =
+			VAR __SelectionId = SELECTEDVALUE(faits_participations[participation_id])
+			RETURN IF(ISBLANK(__SelectionId), "Auteur non renseigné", COALESCE(LOOKUPVALUE(dim_participations[image_auteur], dim_participations[participation_id], __SelectionId), "Auteur non renseigné"))
+		displayFolder: Artistes & chansons
+		lineageTag: 0346adfc-3f60-534a-870a-8250865365f2
+
+	measure 'Source du portrait' =
+			VAR __SelectionId = SELECTEDVALUE(faits_participations[participation_id])
+			RETURN IF(ISBLANK(__SelectionId), "", COALESCE(LOOKUPVALUE(dim_participations[image_source], dim_participations[participation_id], __SelectionId), ""))
+		displayFolder: Artistes & chansons
+		lineageTag: 62165cb3-2f38-5918-842f-89fa6126d22f
+
+	measure 'Licence du portrait' =
+			VAR __SelectionId = SELECTEDVALUE(faits_participations[participation_id])
+			RETURN IF(ISBLANK(__SelectionId), "Licence non renseignée", COALESCE(LOOKUPVALUE(dim_participations[image_licence], dim_participations[participation_id], __SelectionId), "Licence non renseignée"))
+		displayFolder: Artistes & chansons
+		lineageTag: d78d87a2-8beb-5b54-a165-41e519dc6cd6
+
+	measure 'Participation disponible' = IF(COUNTROWS(faits_participations) > 0, 1, BLANK())
+		formatString: 0
+		displayFolder: Artistes & chansons
+		lineageTag: 5b4035f4-be74-515f-a714-f0350ebab615
+
+	measure 'Édition sélectionnée' = IF(HASONEVALUE(faits_participations[participation_id]), FORMAT(SELECTEDVALUE(faits_participations[edition]), "0"), "-")
+		displayFolder: Artistes & chansons
+		lineageTag: 73842374-51fa-5b07-a302-bf2d02f9b8f6
+
+	measure 'Contexte de la sélection' =
+			VAR N = COUNTROWS(faits_participations)
+			RETURN SWITCH(TRUE(), N = 0, "Aucune participation pour ces filtres. Effacez la sélection pour continuer.", N = 1, "Une participation · une chanson · un pays", FORMAT(N, "0") & " participations disponibles · choisissez une chanson")
+		displayFolder: Artistes & chansons
+		lineageTag: 34ce051f-a833-5e79-bb6c-618aa20c5509
+
+	measure 'Résultat sélectionné' =
+			VAR N = COUNTROWS(faits_participations)
+			VAR Finaliste = SELECTEDVALUE(faits_participations[est_finaliste])
+			VAR Rang = CALCULATE(SELECTEDVALUE(faits_resultats[place]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN IF(N <> 1, "-", IF(Finaliste, FORMAT(Rang, "0") & IF(Rang = 1, "er", "e") & " en finale", "Demi-finale"))
+		displayFolder: Artistes & chansons
+		lineageTag: 72f9ccd3-77c3-5695-826b-515d1a8ab21d
+
+	measure 'Points · artiste' = IF(HASONEVALUE(faits_participations[participation_id]), IF(SELECTEDVALUE(faits_participations[est_finaliste]), FORMAT([Points en finale], "0"), "-"), "-")
+		displayFolder: Artistes & chansons
+		lineageTag: dd169e78-3e91-5ec0-876c-51d5c0b45912
+
+	measure 'Statut · artiste' = IF(HASONEVALUE(faits_participations[participation_id]), IF(SELECTEDVALUE(faits_participations[est_finaliste]), "FINALISTE", "DEMI-FINALISTE"), "À EXPLORER")
+		displayFolder: Artistes & chansons
+		lineageTag: 809c2a4d-3856-5d14-bf6c-b8501f507a13
+
+	measure 'Portrait · provenance' = IF(HASONEVALUE(faits_participations[participation_id]), [Crédit du portrait] & " · " & [Licence du portrait], "Sources et licences dans le catalogue photo")
+		displayFolder: Artistes & chansons
+		lineageTag: 87fb2268-c30e-5f1c-a274-460b36c3b236
+
+	/// Participation unique ; absence conservée, zéro authentique conservé.
+	measure 'Énergie · artiste' = IF(HASONEVALUE(faits_participations[participation_id]), SELECTEDVALUE(faits_participations[energy]))
+		formatString: 0.00
+		displayFolder: Artistes & chansons
+		lineageTag: 3c4ab67f-2534-5cae-80ed-9099952546ad
+
+	/// Participation unique ; absence conservée, zéro authentique conservé.
+	measure 'Dansabilité · artiste' = IF(HASONEVALUE(faits_participations[participation_id]), SELECTEDVALUE(faits_participations[danceability]))
+		formatString: 0.00
+		displayFolder: Artistes & chansons
+		lineageTag: 8c2c299c-2f10-5aca-bcbd-899aab4e650d
+
+	/// Participation unique ; absence conservée, zéro authentique conservé.
+	measure 'Acousticité · artiste' = IF(HASONEVALUE(faits_participations[participation_id]), SELECTEDVALUE(faits_participations[acousticness]))
+		formatString: 0.00
+		displayFolder: Artistes & chansons
+		lineageTag: ceb27a9f-5bd1-5d70-8b4b-48aeed9051b5
+
+	measure 'Énergie · texte' =
+			VAR N = COUNTROWS(faits_participations)
+			VAR Valeur = SELECTEDVALUE(faits_participations[energy])
+			RETURN IF(N <> 1, "-", IF(ISBLANK(Valeur), "-", FORMAT(Valeur, "0.00", "fr-FR")))
+		displayFolder: Artistes & chansons
+		lineageTag: 153b6132-ca78-5375-9d87-3ba219f8130a
+
+	measure 'Dansabilité · texte' =
+			VAR N = COUNTROWS(faits_participations)
+			VAR Valeur = SELECTEDVALUE(faits_participations[danceability])
+			RETURN IF(N <> 1, "-", IF(ISBLANK(Valeur), "-", FORMAT(Valeur, "0.00", "fr-FR")))
+		displayFolder: Artistes & chansons
+		lineageTag: fe88ce41-cc43-529a-b78b-d44d4bbb89e1
+
+	measure 'Acousticité · texte' =
+			VAR N = COUNTROWS(faits_participations)
+			VAR Valeur = SELECTEDVALUE(faits_participations[acousticness])
+			RETURN IF(N <> 1, "-", IF(ISBLANK(Valeur), "-", FORMAT(Valeur, "0.00", "fr-FR")))
+		displayFolder: Artistes & chansons
+		lineageTag: 648ca952-21d5-5a37-8297-b1c020657ea3
+
+	measure 'Tempo · texte' =
+			VAR N = COUNTROWS(faits_participations)
+			VAR Valeur = SELECTEDVALUE(faits_participations[tempo])
+			RETURN IF(N <> 1, "-", IF(ISBLANK(Valeur), "Non renseigné", FORMAT(Valeur, "0.0")))
+		displayFolder: Artistes & chansons
+		lineageTag: 9ce9cf28-2fdf-536e-99e2-bca04499bd28
+
+	measure 'Profil · note' = IF(HASONEVALUE(faits_participations[participation_id]), "Indices de 0 à 1 · - = non renseigné · zéros observés conservés", "Sélectionnez une participation pour afficher son profil")
+		displayFolder: Artistes & chansons
+		lineageTag: 4f7331f6-8152-5689-8775-efb343f5e713
+
+	measure 'Rang · étape' = IF(HASONEVALUE(faits_participations[participation_id]), SELECTEDVALUE(faits_resultats[place]))
+		formatString: 0
+		displayFolder: Résultats
+		lineageTag: 499cc552-97ec-55e5-ad71-e6c2e95247ad
+
+	measure 'Points · étape' = IF(HASONEVALUE(faits_participations[participation_id]), SELECTEDVALUE(faits_resultats[points]))
+		formatString: #,0
+		displayFolder: Résultats
+		lineageTag: 28b77917-c19b-5c82-9c3d-e7112b138660
+
+	/// Garde globale pour la photographie : tient compte des segments, indépendamment de la ligne image.
+	measure 'Portrait affichable' =
+			VAR Nombre = CALCULATE(DISTINCTCOUNT(faits_participations[participation_id]), ALLSELECTED(dim_participations))
+			RETURN IF(Nombre = 1 && COUNTROWS(faits_participations) > 0, 1, BLANK())
+		formatString: 0
+		displayFolder: Artistes & chansons
+		lineageTag: 44d7ce09-5896-448e-8b89-8b88234ce17b
+
+	/// Nombre de classements de 1 à 10 en finale, sans compter les demi-finales.
+	measure 'Top 10 en finale' = COALESCE(CALCULATE(COUNTROWS(faits_resultats), KEEPFILTERS(faits_resultats[est_finale] = TRUE()), KEEPFILTERS(faits_resultats[place] <= 10)), 0)
+		formatString: 0
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 32c9576a-a756-52f8-874a-7fb9e146b6eb
+
+	/// Dénominateur : toutes les participations du pays dans la sélection, y compris celles sans finale.
+	measure 'Part des participations dans le Top 10' = DIVIDE([Top 10 en finale], [Participations])
+		formatString: 0.0%
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: c39e69f1-b160-540e-8e78-9306b944931f
+
+	/// Rang uniquement lorsqu’une seule édition et un seul résultat de finale sont identifiés.
+	measure 'Rang en finale · pays' = IF(HASONEVALUE(dim_editions[edition]), CALCULATE(SELECTEDVALUE(faits_resultats[place]), KEEPFILTERS(faits_resultats[est_finale] = TRUE())))
+		formatString: 0
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 7a4e4c36-d1ec-508b-b1f4-3f8b88e0ff53
+
+	measure 'Vue pays · valeur' = IF(HASONEVALUE(dim_editions[edition]), [Rang en finale · pays], IF([Top 10 en finale] > 0, [Top 10 en finale]))
+		formatString: 0
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 123f9964-832e-5e2b-8210-25c253f39acb
+
+	measure 'Vue pays · ordre' = IF(HASONEVALUE(dim_editions[edition]), [Rang en finale · pays], RANKX(ALLSELECTED(dim_pays), [Top 10 en finale], , DESC, DENSE))
+		formatString: 0
+		isHidden
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 21ff66dc-dd9e-58cc-82cb-1ee4fe50fe83
+
+	/// Plusieurs éditions : dix pays au plus, égalités départagées par nom français puis clé. Une édition : tous les finalistes.
+	measure 'Vue pays · affichable' =
+			VAR UneEdition = HASONEVALUE(dim_editions[edition])
+			VAR PaysActuel = SELECTEDVALUE(dim_pays[pays_id])
+			VAR Candidats = FILTER(ADDCOLUMNS(ALLSELECTED(dim_pays), "__Nombre", [Top 10 en finale]), [__Nombre] > 0)
+			VAR DixPays = TOPN(10, Candidats, [__Nombre], DESC, dim_pays[pays_fr], ASC, dim_pays[pays_id], ASC)
+			RETURN IF(UneEdition, IF(NOT ISBLANK([Rang en finale · pays]), 1), IF(CONTAINS(DixPays, dim_pays[pays_id], PaysActuel), 1))
+		formatString: 0
+		isHidden
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 4843012b-8feb-552b-af2b-5442b680f080
+
+	measure 'Vue pays · titre' = IF(HASONEVALUE(dim_editions[edition]), "Le classement des finalistes · " & FORMAT(SELECTEDVALUE(dim_editions[edition]), "0"), "Les pays les plus souvent dans le Top 10")
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: f3571ee1-249e-5356-a358-92070ed2078e
+
+	measure 'Vue pays · sous-titre' =
+			SWITCH(TRUE(),
+			[Passages en finale] = 0, "Aucune finale dans la sélection · élargissez les filtres",
+			HASONEVALUE(dim_editions[edition]), "Rang final · 1 = meilleure place · défilez pour voir tous les pays",
+			[Top 10 en finale] = 0, "Aucun classement dans le Top 10 pour les pays et éditions sélectionnés",
+			"Les 10 premiers pays · nombre de classements en finale de 1 à 10")
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 60e4d2ef-e01d-5258-93df-eddb264febea
+
+	measure 'Périmètre · éditions' =
+			VAR N = [Éditions]
+			RETURN FORMAT(N, "0") & IF(N = 1, " édition représentée", " éditions représentées")
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 47459a49-92bb-5810-b4e7-4bb2c8ac832f
+
+	/// Maximum de la part pré-calculée sur la finale entière ; ce dénominateur est conservé lorsque les pays sont filtrés.
+	measure 'Performance · part maximale' = CALCULATE(MAX(faits_resultats[part_points_etape]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+		formatString: 0.0%
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: ca365229-c4b7-5c87-bcaa-35b42994e095
+
+	measure 'Performance · nombre' =
+			VAR Maximum = [Performance · part maximale]
+			RETURN IF(ISBLANK(Maximum), 0, COUNTROWS(FILTER(faits_resultats, faits_resultats[est_finale] = TRUE() && ABS(faits_resultats[part_points_etape] - Maximum) < 0.000000000001)))
+		formatString: 0
+		isHidden
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: dea7fb43-b4f0-5f7b-8663-80af5d28b497
+
+	measure 'Performance · participation' =
+			VAR Maximum = [Performance · part maximale]
+			VAR Leaders = FILTER(faits_resultats, faits_resultats[est_finale] = TRUE() && ABS(faits_resultats[part_points_etape] - Maximum) < 0.000000000001)
+			RETURN IF([Performance · nombre] = 1, MAXX(Leaders, faits_resultats[participation_id]))
+		isHidden
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 77651296-1c05-5544-a2f6-f908d5762de6
+
+	measure 'Performance · artiste' =
+			VAR __SelectionId = [Performance · participation]
+			VAR Nombre = [Performance · nombre]
+			RETURN SWITCH(TRUE(), Nombre = 0, "Aucune finale", Nombre > 1, FORMAT(Nombre, "0") & " chansons à égalité", LOOKUPVALUE(dim_participations[artiste], dim_participations[participation_id], __SelectionId))
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 085c3b65-5861-5a01-8d20-12cea4647d9d
+
+	measure 'Performance · chanson' =
+			VAR __SelectionId = [Performance · participation]
+			RETURN IF(NOT ISBLANK(__SelectionId), LOOKUPVALUE(dim_participations[chanson], dim_participations[participation_id], __SelectionId))
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 72f31c24-ecea-57ef-8c34-a470e770e367
+
+	measure 'Performance · part affichée' =
+			VAR Part = [Performance · part maximale]
+			RETURN IF(ISBLANK(Part), "-", FORMAT(Part, "0.0 %", "fr-FR"))
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 3dc37c2f-437e-5ca5-9555-c49c1bb2a1b0
+
+	measure 'Performance · contexte' =
+			VAR __SelectionId = [Performance · participation]
+			VAR Pays = LOOKUPVALUE(dim_participations[pays_fr], dim_participations[participation_id], __SelectionId)
+			VAR Annee = LOOKUPVALUE(dim_participations[edition], dim_participations[participation_id], __SelectionId)
+			VAR Points = CALCULATE(SELECTEDVALUE(faits_resultats[points]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()), KEEPFILTERS(TREATAS({__SelectionId}, faits_resultats[participation_id])))
+			RETURN SWITCH(TRUE(), [Performance · nombre] = 0, "Élargissez les filtres pour explorer les chansons.", [Performance · nombre] > 1, "Plusieurs chansons partagent la même part maximale des points.", Pays & " · " & FORMAT(Annee, "0") & UNICHAR(10) & FORMAT(Points, "#,0", "fr-FR") & " points en finale")
+		displayFolder: Vue d’ensemble\Indicateurs
+		lineageTag: 488f765c-32c4-57d8-ba5c-6f99df259718
+
+	/// Finalistes avec énergie, dansabilité et acousticité / tous les finalistes de la sélection.
+	measure 'Couverture · profils complets' = DIVIDE([Profils complets], [Passages en finale])
+		formatString: 0.0%
+		displayFolder: Musique\Indicateurs revus
+		lineageTag: 3f741b5a-5b4f-5350-905c-8bb36ab51dab
+
+	measure 'Profils complets · affichage' = FORMAT([Profils complets], "0") & " / " & FORMAT([Passages en finale], "0")
+		displayFolder: Musique\Indicateurs revus
+		lineageTag: 6fccc4e5-9bf7-5509-8159-baf1595014a8
+
+	measure 'Couverture · profils affichage' = IF([Passages en finale] = 0, "Aucun finaliste dans la sélection", FORMAT([Couverture · profils complets], "0 %", "fr-FR") & " des finalistes sélectionnés")
+		displayFolder: Musique\Indicateurs revus
+		lineageTag: 91def2ca-d81e-5fa2-a678-72ddaea4e584
+
+	measure 'Effectifs · profils par groupe' =
+			VAR __TopN = CALCULATE([Profils complets], KEEPFILTERS(faits_resultats[groupe_classement] = "Top 10"))
+			VAR __TopTotal = CALCULATE([Passages en finale], KEEPFILTERS(faits_resultats[groupe_classement] = "Top 10"))
+			VAR __AutresN = CALCULATE([Profils complets], KEEPFILTERS(faits_resultats[groupe_classement] = "Autres finalistes"))
+			VAR __AutresTotal = CALCULATE([Passages en finale], KEEPFILTERS(faits_resultats[groupe_classement] = "Autres finalistes"))
+			RETURN "Top 10 : " & FORMAT(__TopN, "0") & "/" & FORMAT(__TopTotal, "0") & " · Autres : " & FORMAT(__AutresN, "0") & "/" & FORMAT(__AutresTotal, "0")
+		displayFolder: Musique\Indicateurs revus
+		lineageTag: 2f7355f8-9075-54f9-9f37-d373935026c5
+
+	measure 'Énergie · profil affichage' =
+			VAR __Valeur = [Énergie · profil]
+			RETURN IF(ISBLANK(__Valeur), "-", FORMAT(__Valeur, "0.00", "fr-FR"))
+		displayFolder: Musique\Indicateurs revus
+		lineageTag: a6f982ec-fb89-500b-b68c-0b135bb5f442
+
+	/// Médiane sur le même échantillon complet que les trois moyennes ; disponible en infobulle.
+	measure 'Énergie médiane · profils' =
+			VAR __IdsFinale = CALCULATETABLE(VALUES(faits_resultats[participation_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN CALCULATE(MEDIAN(faits_participations[energy]), KEEPFILTERS(TREATAS(__IdsFinale, faits_participations[participation_id])), KEEPFILTERS(faits_participations[profil_complet] = TRUE()))
+		formatString: 0.00
+		displayFolder: Musique\Indicateurs revus
+		lineageTag: 564a7c06-eac2-5bc2-b2eb-77e2328b2529
+
+	measure 'Dansabilité · profil affichage' =
+			VAR __Valeur = [Dansabilité · profil]
+			RETURN IF(ISBLANK(__Valeur), "-", FORMAT(__Valeur, "0.00", "fr-FR"))
+		displayFolder: Musique\Indicateurs revus
+		lineageTag: dc1ce5c0-7aec-5edd-bb87-03a7424b1b5a
+
+	/// Médiane sur le même échantillon complet que les trois moyennes ; disponible en infobulle.
+	measure 'Dansabilité médiane · profils' =
+			VAR __IdsFinale = CALCULATETABLE(VALUES(faits_resultats[participation_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN CALCULATE(MEDIAN(faits_participations[danceability]), KEEPFILTERS(TREATAS(__IdsFinale, faits_participations[participation_id])), KEEPFILTERS(faits_participations[profil_complet] = TRUE()))
+		formatString: 0.00
+		displayFolder: Musique\Indicateurs revus
+		lineageTag: 874dc4fa-3c0f-58ce-88c2-72745c695d3a
+
+	measure 'Acousticité · profil affichage' =
+			VAR __Valeur = [Acoustique · profil]
+			RETURN IF(ISBLANK(__Valeur), "-", FORMAT(__Valeur, "0.00", "fr-FR"))
+		displayFolder: Musique\Indicateurs revus
+		lineageTag: 3b8a6b24-ebb5-5f89-a7a3-a4c642488028
+
+	/// Médiane sur le même échantillon complet que les trois moyennes ; disponible en infobulle.
+	measure 'Acousticité médiane · profils' =
+			VAR __IdsFinale = CALCULATETABLE(VALUES(faits_resultats[participation_id]), KEEPFILTERS(faits_resultats[est_finale] = TRUE()))
+			RETURN CALCULATE(MEDIAN(faits_participations[acousticness]), KEEPFILTERS(TREATAS(__IdsFinale, faits_participations[participation_id])), KEEPFILTERS(faits_participations[profil_complet] = TRUE()))
+		formatString: 0.00
+		displayFolder: Musique\Indicateurs revus
+		lineageTag: 69b8a566-8ad8-50e8-943a-632c87f0eb15
+
+	measure 'Candidature · pays et année' =
+			VAR __SelectionId = SELECTEDVALUE(faits_participations[participation_id])
+			RETURN IF(ISBLANK(__SelectionId), "-", LOOKUPVALUE(dim_participations[pays_fr], dim_participations[participation_id], __SelectionId) & " · " & FORMAT(SELECTEDVALUE(faits_participations[edition]), "0"))
+		displayFolder: Artistes & chansons\Indicateurs revus
+		lineageTag: 67504cc2-338d-5282-8d5c-f5bf2efba537
+
+	/// Dénominateur de rang : tous les finalistes de l’édition, indépendamment du pays sélectionné.
+	measure 'Finalistes · édition de la candidature' =
+			VAR __SelectionId = SELECTEDVALUE(faits_participations[participation_id])
+			VAR __Annee = SELECTEDVALUE(faits_participations[edition])
+			RETURN IF(NOT ISBLANK(__SelectionId), CALCULATE(COUNTROWS(faits_resultats), REMOVEFILTERS(), TREATAS({__Annee}, dim_editions[edition]), faits_resultats[est_finale] = TRUE()))
+		formatString: 0
+		displayFolder: Artistes & chansons\Indicateurs revus
+		lineageTag: 8ae3dd5d-b5db-5f40-a050-faf4cd522231
+
+	measure 'Rang contextualisé · artiste' =
+			VAR __Unique = HASONEVALUE(faits_participations[participation_id])
+			VAR __Finaliste = SELECTEDVALUE(faits_participations[est_finaliste])
+			VAR __Rang = [Classement en finale]
+			RETURN IF(NOT __Unique, "-", IF(NOT __Finaliste, "Demi-finale", IF(ISBLANK(__Rang), "-", FORMAT(__Rang, "0") & IF(__Rang = 1, "er", "e") & " sur " & FORMAT([Finalistes · édition de la candidature], "0"))))
+		displayFolder: Artistes & chansons\Indicateurs revus
+		lineageTag: 11d6c241-ec9a-514b-904b-1940a6790262
+
+	/// Part du total des points de la finale entière ; ni part des votants, ni taux de qualification.
+	measure 'Part des points · artiste' = IF(HASONEVALUE(faits_participations[participation_id]) && SELECTEDVALUE(faits_participations[est_finaliste]), [Part des points en finale])
+		formatString: 0.0%
+		displayFolder: Artistes & chansons\Indicateurs revus
+		lineageTag: 070892fc-3025-531e-9988-be0f71b0f7ae
+
+	measure 'Part des points · artiste affichage' =
+			VAR __Part = [Part des points · artiste]
+			RETURN IF(ISBLANK(__Part), "-", FORMAT(__Part, "0.0 %", "fr-FR"))
+		displayFolder: Artistes & chansons\Indicateurs revus
+		lineageTag: 064f9b63-5e6f-5ea4-88c3-93d4c03b09bf
+
+	/// Nombre de valeurs présentes parmi les trois indices, sans transformer un zéro observé en absence.
+	measure 'Indices connus · artiste' =
+			VAR __Unique = HASONEVALUE(faits_participations[participation_id])
+			VAR __Nombre = IF(NOT ISBLANK(SELECTEDVALUE(faits_participations[energy])), 1, 0) + IF(NOT ISBLANK(SELECTEDVALUE(faits_participations[danceability])), 1, 0) + IF(NOT ISBLANK(SELECTEDVALUE(faits_participations[acousticness])), 1, 0)
+			RETURN IF(__Unique, __Nombre)
+		formatString: 0
+		displayFolder: Artistes & chansons\Indicateurs revus
+		lineageTag: cdb7573e-65ec-58be-9654-9931abdc2c29
+
+	measure 'Disponibilité · profil artiste' =
+			VAR __Nombre = [Indices connus · artiste]
+			RETURN IF(ISBLANK(__Nombre), "-", FORMAT(__Nombre, "0") & " / 3")
+		displayFolder: Artistes & chansons\Indicateurs revus
+		lineageTag: 12693824-861c-59c5-a4f1-ae29b24f45bb
+
+	column Cle
+		dataType: int64
+		isHidden
+		lineageTag: e39f9c85-fa54-44de-901f-92b98744c039
+		summarizeBy: none
+		sourceColumn: Cle
+
+	partition Mesures = m
+		mode: import
+		source = #table(type table [Cle = Int64.Type], {{1}})
+

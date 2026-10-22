@@ -1,0 +1,180 @@
+table dim_participations
+	lineageTag: 4bf147ac-dd12-51f5-acad-b68d1b9df4c9
+
+	column participation_id
+		dataType: string
+		isHidden
+		lineageTag: d69e943a-09f7-5f43-b85e-aee5ac1873a1
+		summarizeBy: none
+		sourceColumn: participation_id
+
+	column edition
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6a0957ba-6b65-58a8-a7c2-27170752c585
+		summarizeBy: none
+		sourceColumn: edition
+
+	column pays_id
+		dataType: string
+		isHidden
+		lineageTag: 689cb0cc-3bea-5a6b-a8ea-4848de5e6214
+		summarizeBy: none
+		sourceColumn: pays_id
+
+	column ligne_representative
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 59cc1a7f-a08c-58a5-938d-9753624ce904
+		summarizeBy: none
+		sourceColumn: ligne_representative
+
+	column artiste
+		dataType: string
+		lineageTag: 1972b2d1-9ec5-525b-8b25-63bf2198fd3e
+		summarizeBy: none
+		sourceColumn: artiste
+
+	column chanson
+		dataType: string
+		lineageTag: 2523feca-a02d-5021-be90-0dbdede396fb
+		summarizeBy: none
+		sourceColumn: chanson
+
+	column genre_source
+		dataType: string
+		lineageTag: d64751c7-0ea0-5dd5-89dd-6ebaf479cca7
+		summarizeBy: none
+		sourceColumn: genre_source
+
+	column formation_source
+		dataType: string
+		lineageTag: 72337d73-96ed-5783-898c-58f4d8b66f4d
+		summarizeBy: none
+		sourceColumn: formation_source
+
+	column image_url
+		dataType: string
+		isHidden
+		lineageTag: 1b253228-35da-5e73-bf26-f394908bfe07
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: image_url
+
+	column chanson_en_anglais_reference
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: f2ef00f9-9da2-50db-988c-9fc3299d72ac
+		summarizeBy: none
+		sourceColumn: chanson_en_anglais_reference
+
+	column image_url_source
+		dataType: string
+		isHidden
+		lineageTag: 29191fa6-bed9-541a-8a97-c97a61addd81
+		summarizeBy: none
+		sourceColumn: image_url_source
+
+	column image_type
+		dataType: string
+		lineageTag: fe996e36-08d0-53e9-b769-24a4b6587bfb
+		summarizeBy: none
+		sourceColumn: image_type
+
+	column image_sujet
+		dataType: string
+		lineageTag: 95289e32-89b0-5214-b6b2-9019c1d87084
+		summarizeBy: none
+		sourceColumn: image_sujet
+
+	column image_fichier
+		dataType: string
+		lineageTag: 3092cef8-8c3b-5c03-9eba-7610b961209a
+		summarizeBy: none
+		sourceColumn: image_fichier
+
+	column image_source
+		dataType: string
+		lineageTag: 20860a1b-25a4-56d7-9994-70990dafedd5
+		summarizeBy: none
+		sourceColumn: image_source
+
+	column image_auteur
+		dataType: string
+		lineageTag: 17b39e67-48b3-59d4-b199-f3408b476f25
+		summarizeBy: none
+		sourceColumn: image_auteur
+
+	column image_licence
+		dataType: string
+		lineageTag: 1bf83c19-2ca0-56c7-8d9c-1e408e7c80ea
+		summarizeBy: none
+		sourceColumn: image_licence
+
+	column image_licence_url
+		dataType: string
+		lineageTag: 8fbb3273-be09-5731-801f-66b3d03460af
+		summarizeBy: none
+		sourceColumn: image_licence_url
+
+	column image_sha256
+		dataType: string
+		isHidden
+		lineageTag: 655c9af8-7939-541e-92f9-ce4a84c2ff81
+		summarizeBy: none
+		sourceColumn: image_sha256
+
+	column image_url_distante
+		dataType: string
+		isHidden
+		lineageTag: badfc7bb-794d-54f4-91ae-bf050d7fcf36
+		summarizeBy: none
+		sourceColumn: image_url_distante
+
+	column image_date_verification
+		dataType: string
+		lineageTag: 98c3cca3-cf50-5e96-9e09-6d56c66ddecd
+		summarizeBy: none
+		sourceColumn: image_date_verification
+
+	column pays_fr
+		dataType: string
+		lineageTag: 2dd7197e-714d-580c-8e25-fb15f95193d2
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: pays_fr
+
+	column libelle_participation
+		dataType: string
+		lineageTag: 3fa0c4e3-6d47-5f9f-873f-3f4014191942
+		summarizeBy: none
+		sourceColumn: libelle_participation
+
+	column libelle_chanson
+		dataType: string
+		isHidden
+		lineageTag: 60cd90eb-f9e0-5df3-bee8-0aeda22906c0
+		summarizeBy: none
+		sourceColumn: libelle_chanson
+
+	column langue_reference
+		dataType: string
+		lineageTag: 8e6c79ac-f627-5331-94b2-0ee61fced997
+		summarizeBy: none
+		sourceColumn: langue_reference
+
+	partition dim_participations = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DossierDonnees & "\eurovision_constellation.xlsx"), null, true),
+				    Donnees = Table.PromoteHeaders(Source{[Item="dim_participations",Kind="Sheet"]}[Data], [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Donnees, {{"participation_id", type text}, {"edition", Int64.Type}, {"pays_id", type text}, {"ligne_representative", Int64.Type}, {"artiste", type text}, {"chanson", type text}, {"genre_source", type text}, {"formation_source", type text}, {"image_url", type text}, {"chanson_en_anglais_reference", Int64.Type}, {"image_url_source", type text}, {"image_type", type text}, {"image_sujet", type text}, {"image_fichier", type text}, {"image_source", type text}, {"image_auteur", type text}, {"image_licence", type text}, {"image_licence_url", type text}, {"image_sha256", type text}, {"image_url_distante", type text}, {"image_date_verification", type text}, {"pays_fr", type text}, {"libelle_participation", type text}, {"libelle_chanson", type text}, {"langue_reference", type text}}, "en-US")
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+

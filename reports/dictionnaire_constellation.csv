@@ -1,0 +1,102 @@
+﻿table,variable,type_python,valeurs_nulles,description
+dim_editions,edition,Int64,0,"Année de l’édition, 1998-2012."
+dim_editions,nombre_demi_finales,Int64,0,Nombre de demi-finales distinctes observées dans l’édition.
+dim_pays,pays_id,str,0,Clé interne de l’entité historique dans ce périmètre.
+dim_pays,pays_source,str,0,"Nom de pays harmonisé, entités historiques distinctes."
+dim_pays,pays_fr,str,0,"Libellé français d’affichage, sans fusion historique."
+dim_pays,entite_historique,bool,0,"Vrai pour l’entité Serbie-et-Monténégro, conservée séparément."
+dim_pays_donneurs,pays_id,str,0,Clé interne de l’entité historique dans ce périmètre.
+dim_pays_donneurs,pays_source,str,0,"Nom de pays harmonisé, entités historiques distinctes."
+dim_pays_donneurs,pays_fr,str,0,"Libellé français d’affichage, sans fusion historique."
+dim_pays_donneurs,entite_historique,bool,0,"Vrai pour l’entité Serbie-et-Monténégro, conservée séparément."
+dim_participations,participation_id,str,0,Clé pays-édition : année + pays_id.
+dim_participations,edition,Int64,0,"Année de l’édition, 1998-2012."
+dim_participations,pays_id,str,0,Clé interne de l’entité historique dans ce périmètre.
+dim_participations,ligne_representative,int64,0,"Ligne source retenue : finale si présente, sinon demi-finale ; sans moyenne ni remplissage."
+dim_participations,artiste,str,0,Libellé harmonisé ; corrections officielles détaillées dans le journal.
+dim_participations,chanson,str,0,Titre harmonisé ; toute version de la source reste dans audit_source.
+dim_participations,genre_source,string,362,"Catégorie déclarée par la source, jamais inférée."
+dim_participations,formation_source,string,362,Solo / Group déclarés par la source ; non renseigné = cellule vide.
+dim_participations,image_url,str,0,"URI data: intégrée à partir du fichier vérifié, inférieure à 32760 caractères ; photo ou remplacement selon image_type."
+dim_participations,chanson_en_anglais_reference,Int64,0,"Indicateur source de langue pour la ligne représentative (finale si présente, sinon demi-finale) ; aucune propagation aux autres étapes."
+dim_participations,image_url_source,string,253,"Ancienne URL de la source, conservée pour audit ; peut être absente ou associée au mauvais sujet."
+dim_participations,image_type,str,0,"photographie / photographie_collaboration / image_prestation (miniature vidéo, droits réservés) ; visuel_remplacement réservé aux absences explicites, aucune dans le catalogue actuel."
+dim_participations,image_sujet,str,0,"Sujet indiqué par la référence : artiste, membre de collaboration ou pictogramme sans personne."
+dim_participations,image_fichier,str,0,"Chemin relatif du fichier vérifié, portable avec le dépôt."
+dim_participations,image_source,str,0,Page de description du fichier et de ses droits.
+dim_participations,image_auteur,str,0,Crédit Commons ou chaîne vidéo source ; une chaîne n’est pas présumée auteur de la miniature.
+dim_participations,image_licence,str,0,Licence déclarée par Commons ou mention Droits réservés pour les miniatures vidéo ; aucune licence du projet attribuée aux images tierces.
+dim_participations,image_licence_url,str,0,Lien vers les conditions de la licence de l’image.
+dim_participations,image_sha256,str,0,Empreinte du fichier exact utilisé pour l’affichage.
+dim_participations,image_url_distante,str,0,URL de téléchargement de la photographie documentée ; vide pour les pictogrammes créés dans le projet.
+dim_participations,image_date_verification,str,0,Date de la collecte et de la vérification technique du visuel.
+dim_participations,pays_fr,str,0,"Libellé français d’affichage, sans fusion historique."
+dim_participations,libelle_participation,str,0,"Artiste / collaboration, pays français et année ; libellé de sélection, la clé reste participation_id."
+dim_participations,libelle_chanson,str,0,"Chanson, année et pays ; identifiant lisible des points du nuage."
+dim_participations,langue_reference,str,0,Libellé français du code source de la ligne représentative ; nul si absent.
+dim_etapes,etape,str,0,F = finale ; SF1 / SF2 = demi-finale 1 / 2.
+dim_etapes,libelle_etape,str,0,Nom français de l’étape source.
+dim_etapes,ordre_etape,int64,0,"Ordre de présentation : demi-finale 1, demi-finale 2, finale ; ce ne sont pas de nouvelles observations."
+faits_participations,participation_id,str,0,Clé pays-édition : année + pays_id.
+faits_participations,edition,Int64,0,"Année de l’édition, 1998-2012."
+faits_participations,pays_id,str,0,Clé interne de l’entité historique dans ce périmètre.
+faits_participations,energy,float64,141,"Indice [0,1]. energy from Echonest Valeur observée, sans imputation."
+faits_participations,duration,float64,141,"Unité non précisée dans le dictionnaire local. duration from Echonest Valeur observée, sans imputation."
+faits_participations,acousticness,float64,143,"Indice [0,1]. acousticness from Echonest Valeur observée, sans imputation."
+faits_participations,danceability,float64,141,"Indice [0,1]. danceability from Echonest Valeur observée, sans imputation."
+faits_participations,tempo,float64,141,"Unité non précisée dans le dictionnaire local. tempo from Echonest Valeur observée, sans imputation."
+faits_participations,speechiness,float64,141,"Indice [0,1]. speechiness from Echonest Valeur observée, sans imputation."
+faits_participations,key,Int64,141,"key from Echonest Valeur observée, sans imputation."
+faits_participations,liveness,float64,141,"Indice [0,1]. liveness from Echonest Valeur observée, sans imputation."
+faits_participations,time_signature,Int64,141,"time_signature from Echonest Valeur observée, sans imputation."
+faits_participations,mode,Int64,141,"mode from Echonest Valeur observée, sans imputation."
+faits_participations,loudness,float64,141,"Unité non précisée dans le dictionnaire local. loudness from Echonest Valeur observée, sans imputation."
+faits_participations,valence,float64,143,"Indice [0,1]. valence from Echonest Valeur observée, sans imputation."
+faits_participations,happiness_source,float64,288,Moyenne lexicale labMT selon le dictionnaire ; couverture et langue limitent l’interprétation.
+faits_participations,energy_disponible,bool,0,Vrai si energy est renseigné ; faux ≠ zéro.
+faits_participations,duration_disponible,bool,0,Vrai si duration est renseigné ; faux ≠ zéro.
+faits_participations,acousticness_disponible,bool,0,Vrai si acousticness est renseigné ; faux ≠ zéro.
+faits_participations,danceability_disponible,bool,0,Vrai si danceability est renseigné ; faux ≠ zéro.
+faits_participations,tempo_disponible,bool,0,Vrai si tempo est renseigné ; faux ≠ zéro.
+faits_participations,speechiness_disponible,bool,0,Vrai si speechiness est renseigné ; faux ≠ zéro.
+faits_participations,key_disponible,bool,0,Vrai si key est renseigné ; faux ≠ zéro.
+faits_participations,liveness_disponible,bool,0,Vrai si liveness est renseigné ; faux ≠ zéro.
+faits_participations,time_signature_disponible,bool,0,Vrai si time_signature est renseigné ; faux ≠ zéro.
+faits_participations,mode_disponible,bool,0,Vrai si mode est renseigné ; faux ≠ zéro.
+faits_participations,loudness_disponible,bool,0,Vrai si loudness est renseigné ; faux ≠ zéro.
+faits_participations,valence_disponible,bool,0,Vrai si valence est renseigné ; faux ≠ zéro.
+faits_participations,Happiness_disponible,bool,0,Vrai si Happiness est renseigné ; faux ≠ zéro.
+faits_participations,profil_complet,bool,0,"Énergie, dansabilité et acousticité toutes renseignées."
+faits_participations,duree_atypique,bool,0,Hors intervalle de Tukey calculé sur les passages observés ; signalement sans exclusion.
+faits_participations,est_finaliste,bool,0,Au moins un passage observé en finale.
+faits_participations,nombre_passages,Int64,0,Nombre de passages observés pour cette participation.
+faits_resultats,resultat_id,str,0,Clé participation-étape.
+faits_resultats,participation_id,str,0,Clé pays-édition : année + pays_id.
+faits_resultats,edition,Int64,0,"Année de l’édition, 1998-2012."
+faits_resultats,pays_id,str,0,Clé interne de l’entité historique dans ce périmètre.
+faits_resultats,etape,str,0,F = finale ; SF1 / SF2 = demi-finale 1 / 2.
+faits_resultats,ligne_excel,int64,0,"Numéro de ligne du classeur source, en-tête = 1."
+faits_resultats,identifiant_source,Int64,1,Sr.No d’origine converti en entier nullable ; une absence est conservée.
+faits_resultats,place,Int64,0,Rang de l’étape après corrections vérifiées ; pas de recalcul automatique des ex æquo.
+faits_resultats,points,Int64,0,"Points de l’étape ou du vote selon la table, après corrections vérifiées."
+faits_resultats,place_source,Int64,0,"Place avant correction, conservée pour audit."
+faits_resultats,points_source,Int64,0,"Points de l’étape avant correction, conservés pour audit."
+faits_resultats,correction_resultat,boolean,0,Points ou place différents de la source à la suite d’une correction vérifiée.
+faits_resultats,normalized_points_source,float64,0,"Ratio de la source, non écrasé ; dénominateur exact non entièrement réconcilié."
+faits_resultats,part_points_etape,Float64,0,Points corrigés / somme des points corrigés de la même édition et de la même étape.
+faits_resultats,song_quality_source,float64,0,"Score estimé opaque de la source, peut varier entre étapes ; exclu des conclusions centrales."
+faits_resultats,region_source,str,0,"Regroupement de la source, parfois variable entre étapes ; pas un continent officiel."
+faits_resultats,chanson_en_anglais_source,Int64,0,"Drapeau source, maintenu par étape en raison d’une variante non résolue."
+faits_resultats,pays_hote_source,str,0,Indication Home / Away de la source ; non complétée à partir de connaissances externes.
+faits_resultats,region_hote_source,str,0,Home / Away selon le regroupement régional de la source.
+faits_resultats,est_finale,bool,0,Vrai si etape = F.
+faits_resultats,groupe_classement,str,281,"Top 10 ou autres finalistes, défini seulement en finale ; nul pour les demi-finales."
+faits_votes,vote_id,str,0,Clé participation destinataire-pays donneur ; finale uniquement.
+faits_votes,edition,Int64,0,"Année de l’édition, 1998-2012."
+faits_votes,participation_id,str,0,Clé pays-édition : année + pays_id.
+faits_votes,pays_destinataire_id,str,0,Pays finaliste recevant le vote.
+faits_votes,pays_donneur_id,str,0,Pays votant ; dimension de rôle distincte conseillée dans Power BI.
+faits_votes,points,Int64,0,"Points de l’étape ou du vote selon la table, après corrections vérifiées."
+faits_votes,score_source,Int64,0,Valeur du vote avant correction.
+faits_votes,vote_corrige,boolean,0,Vrai si une référence officielle justifie la correction du vote.
+faits_votes,ligne_excel,int64,0,"Numéro de ligne du classeur source, en-tête = 1."

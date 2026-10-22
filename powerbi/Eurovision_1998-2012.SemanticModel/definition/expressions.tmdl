@@ -1,0 +1,5 @@
+expression DossierDonnees = "C:\Eurovision\data\processed" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 56a8d155-6fc5-5b2c-aab7-1b2b46b1b602
+
+	annotation PBI_ResultType = Text
+

@@ -1,0 +1,139 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "dim_editions",
+          "nodeLineageTag": "b865723d-5fd5-549e-8812-7ca86cdbdb19",
+          "size": {
+            "height": 290,
+            "width": 265
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 300,
+            "y": 0
+          },
+          "nodeIndex": "dim_pays",
+          "nodeLineageTag": "d847b399-4231-5dc2-ac9e-84e23d6c10fc",
+          "size": {
+            "height": 290,
+            "width": 265
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 600,
+            "y": 0
+          },
+          "nodeIndex": "dim_participations",
+          "nodeLineageTag": "4bf147ac-dd12-51f5-acad-b68d1b9df4c9",
+          "size": {
+            "height": 290,
+            "width": 265
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 900,
+            "y": 0
+          },
+          "nodeIndex": "dim_etapes",
+          "nodeLineageTag": "26dcee4b-c4b7-5919-8aa6-9da1815c072f",
+          "size": {
+            "height": 290,
+            "width": 265
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1200,
+            "y": 0
+          },
+          "nodeIndex": "dim_pays_donneurs",
+          "nodeLineageTag": "bd58e6d4-3203-59f4-923d-d3b232aa8458",
+          "size": {
+            "height": 290,
+            "width": 265
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 80,
+            "y": 400
+          },
+          "nodeIndex": "faits_participations",
+          "nodeLineageTag": "32d348f4-1e49-5b2a-8ab3-471502669b9e",
+          "size": {
+            "height": 290,
+            "width": 265
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 540,
+            "y": 400
+          },
+          "nodeIndex": "faits_resultats",
+          "nodeLineageTag": "7a590788-592f-5815-a955-f4753d02da2d",
+          "size": {
+            "height": 290,
+            "width": 265
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1000,
+            "y": 400
+          },
+          "nodeIndex": "faits_votes",
+          "nodeLineageTag": "205488fa-a8d2-5d52-9692-be38a40c3057",
+          "size": {
+            "height": 290,
+            "width": 265
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1420,
+            "y": 400
+          },
+          "nodeIndex": "Mesures",
+          "nodeLineageTag": "8eeb3306-7b35-5cd0-b0c2-8fbb9325c982",
+          "size": {
+            "height": 290,
+            "width": 265
+          },
+          "zIndex": 8
+        }
+      ],
+      "name": "Constellation Eurovision",
+      "zoomValue": 75,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Constellation Eurovision",
+  "defaultDiagram": "Constellation Eurovision"
+}

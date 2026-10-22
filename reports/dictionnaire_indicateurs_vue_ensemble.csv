@@ -1,0 +1,8 @@
+﻿indicateur,question,definition,grain,denominateur,affichage
+Participations,Volume,Nombre de lignes du fait participations dans les filtres courants,Un pays et une edition,Aucun,Entier
+Pays representes,Perimetre,Nombre de pays distincts dans les participations,Pays destinataire,Aucun,Entier
+Participations en finale,Volume,Nombre de lignes finales du fait resultats,Une participation en finale,Aucun,Entier
+Presences dans le Top 10,Frequence,Nombre de places de 1 a 10 en finale,"Pays, plusieurs editions",Aucun ; opportunites detaillees en infobulle,Entier
+Rang en finale,Position,Place observee en finale pour une seule edition,Pays et edition,Aucun ; 1 est la meilleure place,Entier
+Part maximale des points,Part,Maximum de part_points_etape sur les finales selectionnees,"Participation, finale","Total des points de la finale entiere, avant filtre pays",Pourcentage
+Part des participations dans le Top 10,Frequence relative,Top 10 en finale / participations du pays dans la selection,Pays et editions selectionnees,Toutes les participations du pays selectionne,Pourcentage
